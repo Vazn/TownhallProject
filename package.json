@@ -1,0 +1,35 @@
+{
+  "name": "townhall",
+  "version": "1.0.0",
+  "description": "![GitHub last commit](https://img.shields.io/github/last-commit/Vazn/ProjetMairie?style=for-the-badge)",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "concurrently \"tsc -w\" \"node-sass --watch styles -o build/styles\" \"nodemon build/src/server/index.js\" "
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vazn/ProjetMairie.git"
+  },
+  "author": "Vazn]",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vazn/ProjetMairie/issues"
+  },
+  "homepage": "https://github.com/Vazn/ProjetMairie#readme",
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "events": "^3.3.0",
+    "express": "^4.17.3",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "lodash": "^4.17.21",
+    "mysql": "^2.18.1",
+    "node-sass": "^7.0.1",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21"
+  }
+}
