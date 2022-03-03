@@ -1,2 +1,4 @@
 node_modules/
 **/desktop.ini
+**/config.js
+**/config.ts
