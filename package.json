@@ -1,7 +1,7 @@
 {
   "name": "townhall",
   "version": "1.0.0",
-  "description": "![GitHub last commit](https://img.shields.io/github/last-commit/Vazn/ProjetMairie?style=for-the-badge)",
+  "description": "![GitHub last commit](https://img.shields.io/github/last-commit/Vazn/TownhallProject?style=for-the-badge)",
   "main": "app.js",
   "scripts": {
     "start": "node build/app.js",
@@ -12,14 +12,14 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Vazn/ProjetMairie.git"
+    "url": "git+https://github.com/Vazn/TownhallProject.git"
   },
   "author": "Vazn]",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Vazn/ProjetMairie/issues"
+    "url": "https://github.com/Vazn/TownhallProject/issues"
   },
-  "homepage": "https://github.com/Vazn/ProjetMairie#readme",
+  "homepage": "https://github.com/Vazn/TownhallProject#readme",
   "dependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
