@@ -1,26 +1,31 @@
-import { port } from "./config.js";
+import { port, corsOptions } from "./config/config.js";
 import { __dirname } from "./helpers.js";
+import { router } from "./router.js";
 
 import express from "express";
-import path from "path";
+import session from "express-session";
+import cors from "cors";
 
 const app = express();
+const store = new session.MemoryStore();
 
-app.use("/public", express.static(__dirname + '/public'));
+app.use(session({
+   secret: "WTF IS THAT",
+   cookie: { maxAge: 30000 },
+   saveUninitialized: false,
+   resave: false,
+   store
+}))
+app.use(express.json());
+app.use(express.urlencoded({ 
+   extended: true 
+}));
 
-app.get("^/$|/acceuil(.html)?", (request, response) => {
-    response.sendFile("./views/index.html", { root : "./" });
-});
-app.get("/login(.html)?", (request, response) => {
-    response.sendFile("./views/login.html", { root : "./" });
-});
+app.use(cors(corsOptions));
 
-
-// app.get("/*", (request, response) => {
-//     response.status(404).sendFile("./views/404.html", { root : "./" });
-// });
-
+app.use("/public", express.static(__dirname + "/public"));
+app.use("/", router);
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port} ...`);
+   console.log(`Server running on port ${port} ...`);
 });

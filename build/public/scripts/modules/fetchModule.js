@@ -7,9 +7,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { queryControler } from './modules/fetchModule.js';
-(function main() {
+export { queryControler };
+function queryControler(controler, data = null) {
     return __awaiter(this, void 0, void 0, function* () {
-        queryControler("fetch");
+        const url = `http://localhost:8080/${controler}`;
+        let answer = null;
+        try {
+            const response = yield fetch(url, {
+                method: "POST",
+                body: data,
+            });
+            answer = yield response.json();
+            console.log("fetchModule answer : ", answer);
+        }
+        catch (e) {
+            console.error(e);
+            return null;
+        }
+        return answer;
     });
-})();
+}

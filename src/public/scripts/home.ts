@@ -1,1 +1,7 @@
-console.log(document.querySelector("h1"));
+import { queryControler } from './modules/fetchModule.js';
+
+(async function main () {
+
+   queryControler("fetch");
+
+})();
