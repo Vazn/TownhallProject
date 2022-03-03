@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node build/app.js",
     "test": "mocha",
-    "build": "concurrently \"tsc\" \"node-sass styles -o build/public/styles\"",
+    "compile": "concurrently \"tsc\" \"node-sass styles -o build/public/styles\"",
+    "uglify": " minify-all-js ./build -m -M",
+    "build": "npm run compile && npm run uglify",
     "dev": "concurrently \"tsc -w\" \"node-sass --w styles -o build/public/styles\" \"nodemon build/app.js\""
   },
   "type": "module",
@@ -34,9 +36,11 @@
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
     "lodash": "^4.17.21",
+    "minify-all-js": "^0.1.9",
     "mysql": "^2.18.1",
     "node-sass": "^7.0.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "uglify-js": "^3.15.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.21"
