@@ -1,4 +1,18 @@
-$color: #ffffff;
+:root {
+   --primary: #93c593;
+   
+   --black: #3f3f3f;
+   --grey: #6d6c6c;
+   --lightgrey: #bbbbbb;
+}
+
+$desktop: 850px;
+@mixin desktop {
+   @media (min-width: #{$desktop}) {
+      @content;
+   }
+};
+
 
 * {
    scroll-behavior: smooth;
@@ -7,31 +21,114 @@ $color: #ffffff;
    padding: 0px;
    list-style: none;
    text-decoration: none;
+   font-family: 'Sen', sans-serif;
+}
+a:link, a:visited, a:active {
+   color: var(--black);
 }
 
 body {
-   display: grid;
-   grid-template-columns: repeat(12, 1fr);
+   position: relative;
+   min-height: 100vh;
+
+   display: flex;
+   flex-direction: column;
    justify-items: center;
    align-items: center;
 
-   h1 {
-      margin: 15px;
-      grid-column: 1 /span 12;
-      background: rgb(138, 194, 138);
-      padding: 10px;
+   @include desktop {
+      /* Responsive here */
    }
 
-   nav {
-      grid-column: 1 /span 12;
+   header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 60px;
+      background: var(--primary);
+   }
+   header > nav {
       ul {
          display: flex;
          align-items: center;
 
          li {
             margin: 0px 15px 0px 15px;
+            padding: 5px;
+            font-size: 1.2rem;
          }
       }
+   }
 
+   main {
+      opacity: 0;
+      animation: fadeIn 0.8s 0.2s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+   }
+
+   footer {
+      margin-top:auto; 
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 60px;
+      background: var(--primary);
+   }
+   footer > nav {
+      ul {
+         display: flex;
+         align-items: center;
+
+         li {
+            margin: 0px 15px 0px 15px;
+            padding: 5px;
+            font-size: 1.2rem;
+         }
+      }
+   }
+
+
+   nav ul li a {
+      transition: all 0.2s;
+   }
+   nav ul li a:hover {
+      color: rgb(255, 255, 255);
+   }
+}
+
+input {
+   padding: 8px;
+}
+
+hr {
+   margin: 10px 0px 10px 0px;
+   border: none;
+   background: var(--lightgrey);
+   width: 80%;
+   height: 2px;
+}
+
+@keyframes rotate {
+   from {
+      transform: rotateZ(0deg);
+   } 
+   to {
+      transform: rotateZ(360deg);
+   }
+}
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+   } 
+   to {
+      opacity: 1;
    }
 }

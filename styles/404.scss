@@ -1,0 +1,10 @@
+main {
+   animation: fadeIn 0.4s forwards;
+
+   img {
+      width: 100px;
+      opacity: 0;
+
+      animation: fadeIn 0.4s forwards;
+   }
+}

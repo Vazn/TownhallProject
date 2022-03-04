@@ -5,3 +5,4 @@ import { queryControler } from './modules/fetchModule.js';
    queryControler("fetch");
 
 })();
+

@@ -3,16 +3,50 @@ export { router };
 
 const router = express.Router();
 
-
 router.get("^/$|/index(.html)?", (request, response) => {
-   response.sendFile("./views/index.html", { root: "./" });
+   response.render("index", {
+      stylesheet: "home.css",
+      scripts: /* Scripts here */"",
+      title: "Mairie de Rouffiac d'Aude",
+   });
 });
 router.get("/login(.html)?", (request, response) => {
-   response.sendFile("./views/login.html", { root: "./" });
+   response.render("login", {
+      stylesheet: "login.css",
+      scripts: /* Scripts here */"",
+      title: "Connexion",
+   });
+});
+router.get("/about(.html)?", (request, response) => {
+   response.render("about", {
+      stylesheet: "about.css",
+      scripts: /* Scripts here */"",
+      title: "A propos",
+   });
+});
+router.get("/legal(.html)?", (request, response) => {
+   response.render("legal", {
+      stylesheet: "legal.css",
+      scripts: /* Scripts here */"",
+      title: "Mentions légales",
+   });
+});
+router.get("/activities(.html)?", (request, response) => {
+   response.render("activities", {
+      stylesheet: "activities.css",
+      scripts: /* Scripts here */"",
+      title: "Mentions légales",
+   });
 });
 router.get("/*", (request, response) => {
-   response.status(404).sendFile("./views/404.html", { root: "./" });
+   response.status(404).render("404", {
+      stylesheet: "404.css",
+      scripts: /* Scripts here */"",
+      title: "Erreur",
+   });
 });
+
+
 
 router.post("/fetchTest", (request, response) => {
    response.json({
@@ -20,10 +54,9 @@ router.post("/fetchTest", (request, response) => {
       attribut2: "blaaaa",
    });
 });
-
-
 router.post("/login", (request, response) => {
    const { login, password } = request.body;
+   console.log("login : ", login)
 
    if (login && password) {
       if (request.session.authenticated) {
