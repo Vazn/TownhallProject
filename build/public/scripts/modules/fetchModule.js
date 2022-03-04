@@ -15,7 +15,7 @@ function queryControler(controler, data = null) {
         try {
             const response = yield fetch(url, {
                 method: "POST",
-                body: data,
+                body: data
             });
             answer = yield response.json();
             console.log("fetchModule answer : ", answer);

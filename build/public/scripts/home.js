@@ -8,8 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { queryControler } from './modules/fetchModule.js';
-(function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        queryControler("fetch");
-    });
-})();
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    queryControler("fetch");
+}))();

@@ -1,6 +1,6 @@
 import { queryControler } from './modules/fetchModule.js';
 
-(async function main () {
+(async () => {
 
    queryControler("fetch");
 

@@ -14,16 +14,13 @@ app.set("views", path.join(__dirname, "..", "views"));
 app.use(express.static(__dirname + "/public"));
 app.use(cors(corsOptions));
 app.use(session({
-    secret: "WTF IS THAT",
+    secret: "Zfc15441%rza24\\razr[<",
     cookie: { maxAge: 30000 },
     saveUninitialized: false,
     resave: false,
     store
 }));
 app.use(express.json());
-app.use(express.urlencoded({
-    extended: true
-}));
 app.use("/", router);
 app.listen(port, () => {
     console.log(`Server running on port ${port} ...`);

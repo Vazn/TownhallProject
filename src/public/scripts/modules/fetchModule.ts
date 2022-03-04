@@ -1,13 +1,13 @@
 export { queryControler };
 
-async function queryControler(controler: string, data: FormData = null) {
-   const url: string = `http://localhost:8080/${controler}`;
+async function queryControler(controler :string, data = null) {
+   const url :string = `http://localhost:8080/${controler}`;
    let answer = null;
 
    try {
-      const response: Response = await fetch(url, {
+      const response :Response = await fetch(url, {
          method: "POST",
-         body: data,
+         body: data
       });
 
       answer = await response.json();

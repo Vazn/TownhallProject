@@ -7,23 +7,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { url } from "./config/config.js";
-import { fileURLToPath } from "url";
-import path from "path";
-import chalk from "chalk";
-import mongoose from "mongoose";
-function connect() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const database = yield mongoose.connect(url).catch(err => error(err));
-        return database;
-    });
+import { queryControler } from './modules/fetchModule.js';
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    loginForm();
+}))();
+function loginForm() {
+    const form = document.querySelector("form[name=loginForm]");
+    form.addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
+        e.preventDefault();
+        const formattedData = new FormData(form);
+        const answer = yield queryControler("login", formattedData);
+        return answer;
+    }));
 }
-function log(message) {
-    console.log(chalk.bgGreen.black(message));
-}
-function error(message) {
-    console.log(chalk.bgRed.black(message));
-}
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-export { __filename, __dirname, connect, log, error };

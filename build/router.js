@@ -1,45 +1,56 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import express from "express";
-export { router };
+import formidable from "formidable";
+import { connect, error } from "./helpers.js";
 const router = express.Router();
+connect();
 router.get("^/$|/index(.html)?", (request, response) => {
     response.render("index", {
         stylesheet: "home.css",
-        scripts: "",
+        script: "",
         title: "Mairie de Rouffiac d'Aude",
     });
 });
 router.get("/login(.html)?", (request, response) => {
     response.render("login", {
         stylesheet: "login.css",
-        scripts: "",
+        script: "login.js",
         title: "Connexion",
     });
 });
 router.get("/about(.html)?", (request, response) => {
     response.render("about", {
         stylesheet: "about.css",
-        scripts: "",
+        script: "",
         title: "A propos",
     });
 });
 router.get("/legal(.html)?", (request, response) => {
     response.render("legal", {
         stylesheet: "legal.css",
-        scripts: "",
+        script: "",
         title: "Mentions légales",
     });
 });
 router.get("/activities(.html)?", (request, response) => {
     response.render("activities", {
         stylesheet: "activities.css",
-        scripts: "",
+        script: "",
         title: "Mentions légales",
     });
 });
 router.get("/*", (request, response) => {
     response.status(404).render("404", {
         stylesheet: "404.css",
-        scripts: "",
+        script: "",
         title: "Erreur",
     });
 });
@@ -50,27 +61,24 @@ router.post("/fetchTest", (request, response) => {
     });
 });
 router.post("/login", (request, response) => {
-    const { login, password } = request.body;
-    console.log("login : ", login);
-    if (login && password) {
-        if (request.session.authenticated) {
-            response.json(request.session);
+    const form = formidable();
+    form.parse(request, (err, fields, files) => __awaiter(void 0, void 0, void 0, function* () {
+        if (err) {
+            error("Unable to parse form data !");
+            response.status(400).json({ sucess: false });
+        }
+        const { email, password } = fields;
+        error({ test: 1 });
+        if (typeof email === "string" && typeof password === "string") {
+            if (request.session.authenticated)
+                response.json(request.session);
+            else {
+            }
         }
         else {
-            if (password === "123") {
-                request.session.authenticated = true;
-                request.session.user = {
-                    pseudo: login,
-                    password: password,
-                };
-                response.status(200).json(request.session);
-            }
-            else {
-                response.status(403).json({ msg: `Bad credentials` });
-            }
+            error("Form data are missing or wrong type !");
+            response.status(400).json({ sucess: false });
         }
-    }
-    else {
-        response.status(403).json({ msg: `Bad credentials` });
-    }
+    }));
 });
+export { router };

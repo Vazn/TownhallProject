@@ -1,5 +1,5 @@
 import { port, corsOptions } from "./config/config.js";
-import { __dirname } from "./helpers.js";
+import { __dirname, log, error } from "./helpers.js";
 import { router } from "./router.js";
 
 import express from "express";
@@ -15,20 +15,16 @@ app.engine("hbs", hbs.engine({ extname: "hbs", defaultLayout: "main" }));
 app.set('view engine', 'hbs');
 app.set("views", path.join(__dirname, "..", "views"));
 
-
 app.use(express.static(__dirname + "/public"));
 app.use(cors(corsOptions));
 app.use(session({
-   secret: "WTF IS THAT",
+   secret: "Zfc15441%rza24\\razr[<",
    cookie: { maxAge: 30000 },
    saveUninitialized: false,
    resave: false,
    store
-}))
-app.use(express.json());
-app.use(express.urlencoded({ 
-   extended: true 
 }));
+app.use(express.json());
 
 app.use("/", router);
 app.listen(port, () => {
