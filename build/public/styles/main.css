@@ -140,9 +140,14 @@ h2 {
 }
 
 #navBlason {
+  cursor: pointer;
   top: 4px;
   left: 5px;
   height: 55px;
+}
+
+#navBlason:hover {
+  animation: wiggle 0.5s infinite forwards alternate;
 }
 
 input {
@@ -174,12 +179,18 @@ hr {
   height: 3px;
 }
 
-@keyframes rotate {
-  from {
-    transform: rotateZ(0deg);
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
   }
-  to {
-    transform: rotateZ(360deg);
+  25% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
   }
 }
 @keyframes fadeIn {

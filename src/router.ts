@@ -39,7 +39,6 @@ router.post("/login", async (request, response) => {
 
       if (request.session.authenticated) response.json({ success: false }); 
       else {
-
          const existingUser = await User.findOne({ email: email });
          // await argon.verify("<big long hash>", password)
 
@@ -70,67 +69,29 @@ router.get("/logged",  (request, response) => {
 
 //===========//========>> PAGES RENDERING <<============//===========//
 
-router.get("^/$|/index(.html)?", (request, response) => {
-   response.render("index", {
-      stylesheet: "index.css",
-      script: /* Scripts here */"",
-      title: "Mairie de Rouffiac d'Aude",
-      logged: request.session.authenticated
-   });  
-});
-router.get("/login(.html)?", (request, response) => {
-   response.render("login", {
-      stylesheet: "login.css",
-      script: "login.js",
-      title: "Connexion",
-      logged: request.session.authenticated
-   });   
-});
-router.get("/about(.html)?", (request, response) => {
-   response.render("about", {
-      stylesheet: "about.css",
-      script: /* Scripts here */"",
-      title: "A propos",
-      logged: request.session.authenticated
-   });
-});
-router.get("/legal(.html)?", (request, response) => {
-   response.render("legal", {
-      stylesheet: "legal.css",
-      script: /* Scripts here */"",
-      title: "Mentions légales",
-      logged: request.session.authenticated
-   });
-});
-router.get("/activities(.html)?", (request, response) => {
-   response.render("activities", {
-      stylesheet: "activities.css",
-      script: "activities.js",
-      title: "Activités",
-      logged: request.session.authenticated
-   });
-});
-router.get("/admin(.html)?", (request, response) => {
-   if (request.session.authenticated) {
-      response.render("admin", {
-         stylesheet: "admin.css",
-         script: "admin.js",
-         title: "Administation",
-         logged: request.session.authenticated
-      });  
-   } else {
-      response.status(403).end();
-   }
-});
+router.get("^/$|/index(.html)?", renderTemplate("index", "Commune de Rouffiac d'Aude"));
+router.get("/login(.html)?", renderTemplate("login", "Connexion"));
+router.get("/about(.html)?", renderTemplate("about", "A propos"));
+router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
+router.get("/activities(.html)?", renderTemplate("activities", "Acitivités"));
+router.get("/admin(.html)?", authentify, renderTemplate("admin", "Administration"));
+router.get("/*", renderTemplate("404", "Page introuvable"));
 
-router.get("/*", (request, response) => {
-   response.status(404).render("404", {
-      stylesheet: "404.css",
-      script: /* Scripts here */"",
-      title: "Page introuvable",
-      logged: request.session.authenticated
-   });
-});
+//== NOTE : Render any template, give the name, and any number of dynamic params
+function renderTemplate(page :string, title :string) {
+   return (req, res) => {
+      res.render(`${page}`, {
+         stylesheet: `${page}.css`,
+         script: `${page}.js`,
+         title: title,
+         logged: req.session.authenticated
+      });  
+   }
+}
+function authentify(request, response, next) {
+   if (request.session.authenticated) next();
+   else response.status(403).end();
+}
 
 export { router };
 
