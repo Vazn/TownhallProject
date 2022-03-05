@@ -1,1 +1,28 @@
-import{port as e,corsOptions as r}from"./config/config.js";import{__dirname as s}from"./helpers.js";import{router as o}from"./router.js";import i from"express";import n from"path";import t from"express-session";import m from"cors";import p from"express-handlebars";const a=i(),f=new t.MemoryStore;a.engine("hbs",p.engine({extname:"hbs",defaultLayout:"main"})),a.set("view engine","hbs"),a.set("views",n.join(s,"..","views")),a.use(i.static(s+"/public")),a.use(m(r)),a.use(t({secret:"Zfc15441%rza24\\razr[<",cookie:{maxAge:3e4},saveUninitialized:!1,resave:!1,store:f})),a.use(i.json()),a.use("/",o),a.listen(e,(()=>{console.log(`Server running on port ${e} ...`)}));
+import { port, corsOptions } from "./config/config.js";
+import { __dirname } from "./helpers.js";
+import { router } from "./router.js";
+import express from "express";
+import path from "path";
+import session from "express-session";
+import cors from "cors";
+import hbs from "express-handlebars";
+import { connect } from "./helpers.js";
+const app = express();
+const database = connect();
+app.engine("hbs", hbs.engine({ extname: "hbs", defaultLayout: "main" }));
+app.set('view engine', 'hbs');
+app.set("views", path.join(__dirname, "..", "views"));
+app.use(express.static(__dirname + "/public"));
+app.use(cors(corsOptions));
+app.use(session({
+    name: "SessionID",
+    secret: "Zfc15441%rza24\\razr[<",
+    cookie: { maxAge: 604800000 },
+    saveUninitialized: false,
+    resave: false,
+}));
+app.use(express.json());
+app.use("/", router);
+app.listen(port, () => {
+    console.log(`Server running on port ${port} ...`);
+});

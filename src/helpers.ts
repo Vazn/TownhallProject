@@ -22,9 +22,7 @@ const __dirname = path.dirname(__filename);
 declare module "express-session" {
    export interface SessionData {
       authenticated :boolean;
-      user: {
-         email :string
-      }
+      email :string;
    }
 }
 

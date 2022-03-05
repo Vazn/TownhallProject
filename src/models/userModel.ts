@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
-import { connect } from "../helpers.js";
 
-connect();
-
-const userSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
    email: String,
-   password: String
+   password: String 
 });
+
+//== NOTE: Link the schma to the DB collection
+const User = mongoose.model("users", schema);
+
+export { User }

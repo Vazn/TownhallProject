@@ -1,19 +1,14 @@
 export { queryControler };
 
-async function queryControler(controler :string, data = null) {
+async function queryControler(controler :string, options :Object) {
    const url :string = `http://localhost:8080/${controler}`;
    let answer = null;
 
    try {
-      const response :Response = await fetch(url, {
-         method: "POST",
-         body: data
-      });
+      const response :Response = await fetch(url, options);
 
       answer = await response.json();
-      console.log("fetchModule answer : ", answer);
    } catch (e) {
-      console.error(e);
       return null;
    }
 

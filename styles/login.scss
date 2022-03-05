@@ -1,9 +1,20 @@
-form {
+@use "modules/colors";
+
+section {
    display: flex;
    flex-direction: column;
    align-items: center;
-   background-color: var(--primary);
+}
+
+form {
+   display: flex;
+   flex-direction: column;
+   width: 250px;
+   align-items: center;
+   background-color: color;
    padding: 10px 15px 15px 20px;
+   background: colors.get(grey1);
+   border: colors.get(grey2) 1px solid;
 
    div {
       display: flex;
@@ -15,4 +26,9 @@ form {
    input[type=submit] {
       cursor: pointer;
    }
+}
+
+#loginFeedback {
+   margin-top: 5px;
+   font-size: 1.4rem;
 }

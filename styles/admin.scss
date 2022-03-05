@@ -1,0 +1,24 @@
+@use "modules/colors";
+@use "modules/mixin";
+
+form[name=articleForm] {
+   @include mixin.flex(column, center, center);
+   background: colors.get(grey1);
+   padding: 15px;
+   margin: 30px 0px 0px 0px;
+   border: colors.get(grey3) solid 1.5px;
+
+   div {
+      @include mixin.flex(column, center, center);
+      margin: 0px 0px 10px 0px;
+   }
+   input[type=text], textarea{
+      outline: none;
+      border: none;
+   }
+   textarea {
+      height: 100px;
+      width: 500px;
+      padding: 5px;
+   }
+}

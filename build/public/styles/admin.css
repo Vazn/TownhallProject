@@ -13,33 +13,29 @@
   --white: #fefefe;
 }
 
-section {
+form[name=articleForm] {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  width: 250px;
-  align-items: center;
-  background-color: color;
-  padding: 10px 15px 15px 20px;
+  justify-content: center;
   background: var(--grey1);
-  border: var(--grey2) 1px solid;
+  padding: 15px;
+  margin: 30px 0px 0px 0px;
+  border: var(--grey3) solid 1.5px;
 }
-form div {
+form[name=articleForm] div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
+  justify-content: center;
+  margin: 0px 0px 10px 0px;
 }
-form input[type=submit] {
-  cursor: pointer;
+form[name=articleForm] input[type=text], form[name=articleForm] textarea {
+  outline: none;
+  border: none;
 }
-
-#loginFeedback {
-  margin-top: 5px;
-  font-size: 1.4rem;
+form[name=articleForm] textarea {
+  height: 100px;
+  width: 500px;
+  padding: 5px;
 }

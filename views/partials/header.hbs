@@ -1,8 +1,13 @@
 <header>
    <nav>
+      <img src="images/blason.svg" alt="blason" id="navBlason"/>
       <ul>
          <li> <a href="/"> Acceuil </a> </li>
          <li> <a href="/activities"> Activités </a> </li>
+         <li> <a href="/documents"> Documents </a> </li>
+         {{#if logged}}
+         <li> <a href="/admin"> Administration </a> </li>
+         {{/if}}
       </ul>
    </nav>
 </header>

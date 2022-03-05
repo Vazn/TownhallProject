@@ -1,7 +1,12 @@
 <footer>
    <nav>
       <ul>
+         {{#if logged}}
+         <li> <a href="/logout"> Deconnexion </a> </li>
+         {{else}}
          <li> <a href="/login"> Connexion </a> </li>
+         {{/if}}
+
          <li> <a href="/about"> A propos </a> </li>
          <li> <a href="/legal"> Mentions légales </a> </li>
       </ul>

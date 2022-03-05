@@ -1,1 +1,7 @@
-import o from"mongoose";import{connect as r}from"../helpers.js";r();new o.Schema({email:String,password:String});
+import mongoose from "mongoose";
+const schema = new mongoose.Schema({
+    email: String,
+    password: String
+});
+const User = mongoose.model("users", schema);
+export { User };

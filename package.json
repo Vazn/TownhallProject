@@ -6,10 +6,9 @@
   "scripts": {
     "start": "node build/app.js",
     "test": "mocha",
-    "compile": "concurrently \"tsc\" \"node-sass styles -o build/public/styles\"",
-    "uglify": "minify-all-js ./build -m -M",
-    "build": "npm run compile && npm run uglify",
-    "dev": "concurrently \"tsc -w\" \"node-sass --w styles -o build/public/styles\" \"nodemon build/app.js\""
+    "build": "concurrently \"tsc\" \"sass --no-source-map styles:build/public/styles\"",
+    "ulgy": "minify-all-js ./build -m -M",
+    "dev": "concurrently \"tsc -w\" \"sass --no-source-map --watch styles:build/public/styles\" \"nodemon build/app.js\""
   },
   "type": "module",
   "repository": {
@@ -44,8 +43,8 @@
     "lodash": "^4.17.21",
     "minify-all-js": "^0.1.9",
     "mongoose": "^6.2.4",
-    "node-sass": "^7.0.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "sass": "^1.49.9"
   },
   "devDependencies": {
     "@types/node": "^17.0.21"

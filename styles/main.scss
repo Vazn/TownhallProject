@@ -1,18 +1,30 @@
-:root {
-   --primary: #93c593;
-   
-   --black: #3f3f3f;
-   --grey: #6d6c6c;
-   --lightgrey: #bbbbbb;
-}
+@use "modules/colors";
+@use "modules/mixin";
 
-$desktop: 850px;
-@mixin desktop {
-   @media (min-width: #{$desktop}) {
-      @content;
-   }
+//== NOTE : Use this inside anythign to make responsive
+@include mixin.desktop {
 };
 
+::-webkit-scrollbar {
+   width: 10px;
+}
+::-webkit-scrollbar-track {
+   background: colors.get(grey4);
+}
+::-webkit-scrollbar-thumb {
+   background: colors.get(grey2);
+}
+::-webkit-scrollbar-thumb:hover {
+   background: colors.get(primary2);
+}
+::-moz-selection {
+   color: colors.get(black);
+   background: colors.get(primary2);
+}
+::selection {
+   color: colors.get(black);
+   background: colors.get(primary2);
+}
 
 * {
    scroll-behavior: smooth;
@@ -23,36 +35,33 @@ $desktop: 850px;
    text-decoration: none;
    font-family: 'Sen', sans-serif;
 }
+textarea {
+   resize: none;
+}
 a:link, a:visited, a:active {
-   color: var(--black);
+   font-family: 'Montserrat Alternates', sans-serif;
+   font-weight: 200;
+   color: colors.get(white);
 }
 
 body {
+   @include mixin.flex(column, center, center);
    position: relative;
    min-height: 100vh;
 
-   display: flex;
-   flex-direction: column;
-   justify-items: center;
-   align-items: center;
-
-   @include desktop {
-      /* Responsive here */
-   }
-
    header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      @include mixin.flex(column, flex-start, center);
+
       width: 100%;
-      height: 60px;
-      background: var(--primary);
+      padding: 5px;
+      background: colors.get(black);
    }
    header > nav {
+      @include mixin.flex(row, center, center);
+      margin-left: 5px;
+
       ul {
-         display: flex;
-         align-items: center;
+         @include mixin.flex(row, center, center);
 
          li {
             margin: 0px 15px 0px 15px;
@@ -63,29 +72,27 @@ body {
    }
 
    main {
+      @include mixin.flex(column, center, center);
+      animation: fadeIn 0.2s 0.3s forwards;
+
       opacity: 0;
-      animation: fadeIn 0.8s 0.2s forwards;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px;
+      width: 100%;
+      margin: 20px 20px 50px 20px;
    }
 
    footer {
-      margin-top:auto; 
+      @include mixin.flex(column, center, center);
+      animation: fadeIn 0.2s 0.3s forwards;
 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      opacity: 0;
+      margin-top:auto; 
       width: 100%;
       height: 60px;
-      background: var(--primary);
+      background: colors.get(black);
    }
    footer > nav {
       ul {
-         display: flex;
-         align-items: center;
+         @include mixin.flex(row, center, center);
 
          li {
             margin: 0px 15px 0px 15px;
@@ -97,23 +104,52 @@ body {
 
 
    nav ul li a {
-      transition: all 0.2s;
+      transition: all 0.1s;
    }
    nav ul li a:hover {
-      color: rgb(255, 255, 255);
+      color: colors.get(primary);
    }
 }
 
+h2 {
+   font-family: 'Montserrat Alternates', sans-serif;
+   font-size: 2rem;
+}
+
+#navBlason {
+   // position: absolute;
+   top: 4px;
+   left: 5px;
+   height: 55px;
+}
 input {
    padding: 8px;
 }
 
+.fileUpload,input[type=button], input[type=submit], button {
+   cursor: pointer;
+   padding: 8px;
+   font-size: 1.1rem;
+   
+   background: colors.get(grey1);
+   border: colors.get(grey3) solid 1px;
+   transition: background 0.2s;
+}
+.fileUpload:hover, input[type=button]:hover, input[type=submit]:hover, button:hover {
+   background: colors.get(primary2);
+}
+
+input[type=file] {
+   display: none;
+}
+
+
 hr {
    margin: 10px 0px 10px 0px;
    border: none;
-   background: var(--lightgrey);
+   background: colors.get(primary);
    width: 80%;
-   height: 2px;
+   height: 3px;
 }
 
 @keyframes rotate {
@@ -125,6 +161,14 @@ hr {
    }
 }
 @keyframes fadeIn {
+   from {
+      opacity: 0;
+   } 
+   to {
+      opacity: 1;
+   }
+}
+@keyframes fadeOut {
    from {
       opacity: 0;
    } 

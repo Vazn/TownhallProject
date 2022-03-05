@@ -1,2 +1,18 @@
+:root {
+  --primary: #F2D244;
+  --primary2:	#FAE790;
+  --secondary: #D54026;
+  --green: #93c593;
+  --red: #D54026;
+  --black: #3f3f3f;
+  --grey5: #4b4b4b;
+  --grey4: #6d6c6c;
+  --grey3: #bbbbbb;
+  --grey2: #dbdbdb;
+  --grey1: #f3f3f3;
+  --white: #fefefe;
+}
+
 p {
-  margin: 25px; }
+  margin: 25px;
+}

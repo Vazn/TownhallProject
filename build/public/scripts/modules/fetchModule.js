@@ -1,1 +1,24 @@
-var n=this&&this.__awaiter||function(n,t,o,e){function c(n){return n instanceof o?n:new o((function(t){t(n)}))}return new(o||(o=Promise))((function(o,r){function u(n){try{l(e.next(n))}catch(n){r(n)}}function i(n){try{l(e.throw(n))}catch(n){r(n)}}function l(n){n.done?o(n.value):c(n.value).then(u,i)}l((e=e.apply(n,t||[])).next())}))};export{t as queryControler};function t(t,o=null){return n(this,void 0,void 0,(function*(){const n=`http://localhost:8080/${t}`;let e=null;try{const t=yield fetch(n,{method:"POST",body:o});e=yield t.json(),console.log("fetchModule answer : ",e)}catch(n){return console.error(n),null}return e}))}
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+export { queryControler };
+function queryControler(controler, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `http://localhost:8080/${controler}`;
+        let answer = null;
+        try {
+            const response = yield fetch(url, options);
+            answer = yield response.json();
+        }
+        catch (e) {
+            return null;
+        }
+        return answer;
+    });
+}

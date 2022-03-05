@@ -1,0 +1,26 @@
+@use "modules/colors";
+@use "modules/mixin";
+
+section {
+   @include mixin.flex(column, center, center);
+
+   hr {
+      margin: 40px 0px 30px 0px;
+   }
+   article {
+      @include mixin.flex(column, center, center);
+   }
+   article h2 {
+      margin: 0px 0px 20px 0px;
+   }
+   article p {
+      width: 800px;
+   }
+   article img {
+      float: left;
+      padding: 8px;
+      margin: 5px 25px 5px 5px ;
+      background: colors.get(grey1);
+      border: colors.get(grey3) solid 2px;
+   }
+}
