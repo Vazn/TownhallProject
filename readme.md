@@ -13,9 +13,10 @@
 Internship project for the townhall of Rouffiac d'Aude
 ## ***Features***
 
-🔄 **Final design ...** <br>
-🔄 **Connection interface ...** <br><br>
+✅ **Connection interface 75% ** <br><br>
 
-💤 **Articles CRUD ...** <br>
+🔄 **Final design ...** <br>
+🔄 **Articles CRUD ...** <br>
+
 💤 **Security features ...** <br>
 
