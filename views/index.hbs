@@ -1,10 +1,9 @@
 <main>
    <section>
+      {{#each data}}
       {{> article}}
       <hr>
-      {{> article}}
-      <hr>
-      {{> article}}
+      {{/each}}
    </section>
    {{!-- {{# if logged}} --}}
    <section id="adminSection">

@@ -3,10 +3,10 @@ import { Request, Response, NextFunction } from 'express';
 //==========//===========>> TYPES EXTENSIONS <<=========//============//
 
 interface CustomRequest extends Request {
-   results?:string;
+   data ?:Object;
 }
 interface CustomResponse extends Response {
-   results?:string;
+   data?:string;
 }
 
 declare module "express-session" {

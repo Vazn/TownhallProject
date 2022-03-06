@@ -1,1 +1,44 @@
-var e=this&&this.__awaiter||function(e,t,n,o){function i(e){return e instanceof n?e:new n((function(t){t(e)}))}return new(n||(n=Promise))((function(n,c){function r(e){try{a(o.next(e))}catch(e){c(e)}}function u(e){try{a(o.throw(e))}catch(e){c(e)}}function a(e){e.done?n(e.value):i(e.value).then(r,u)}a((o=o.apply(e,t||[])).next())}))};import{queryControler as t}from"./modules/fetchModule.js";function n(){const n=document.querySelector("form[name=loginForm]"),o=(document.querySelector("main"),document.querySelector("#loginFeedback"));n.addEventListener("submit",(i=>e(this,void 0,void 0,(function*(){i.preventDefault();const e=new FormData(n),c=JSON.stringify(Object.fromEntries(e)),r=yield t("login",{method:"POST",body:c,headers:{"Content-Type":"application/json"}});return r.success?(o.style.color="var(--green)",o.textContent="",o.textContent="Bienvenue !",setTimeout((()=>{location.replace("/index")}),500)):(o.style.color="var(--red)",o.textContent="",o.textContent="Connexion échouée, ce compte n'existe pas"),r}))))}e(void 0,void 0,void 0,(function*(){n()}));
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { queryControler } from './modules/fetchModule.js';
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    loginForm();
+}))();
+function loginForm() {
+    const form = document.querySelector("form[name=loginForm]");
+    const main = document.querySelector("main");
+    const feedback = document.querySelector("#loginFeedback");
+    form.addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
+        e.preventDefault();
+        const formattedData = new FormData(form);
+        const json = JSON.stringify(Object.fromEntries(formattedData));
+        const answer = yield queryControler("login", {
+            method: "POST",
+            body: json,
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+        if (answer.success) {
+            feedback.style.color = "var(--green)";
+            feedback.textContent = "";
+            feedback.textContent = "Bienvenue !";
+            setTimeout(() => {
+                location.replace("/index");
+            }, 500);
+        }
+        else {
+            feedback.style.color = "var(--red)";
+            feedback.textContent = "";
+            feedback.textContent = "Connexion échouée, ce compte n'existe pas";
+        }
+        return answer;
+    }));
+}

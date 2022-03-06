@@ -1,6 +1,7 @@
 :root {
   --primary: #F2D244;
   --primary2:	#FAE790;
+  --primary3:	#faecad;
   --secondary: #D54026;
   --green: #93c593;
   --red: #D54026;
@@ -40,7 +41,7 @@ article p {
   width: 800px;
 }
 article .picture {
-  float: left;
+  width: 250px;
   padding: 8px;
   margin: 5px 25px 5px 5px;
   background: var(--grey1);
@@ -53,6 +54,10 @@ article .icons {
 }
 article .icons:hover {
   transform: scale(1.2);
+}
+
+article:hover {
+  border: var(--primary2) 4px solid;
 }
 
 #adminSection {
@@ -69,7 +74,7 @@ article .icons:hover {
   background: var(--grey1);
   padding: 15px;
   margin: 30px 0px 0px 0px;
-  border: var(--grey3) solid 1.5px;
+  border: var(--grey2) 4px solid;
 }
 #adminSection form div {
   display: flex;
@@ -83,8 +88,8 @@ article .icons:hover {
   border: none;
 }
 #adminSection form textarea {
-  height: 100px;
-  width: 500px;
+  height: 150px;
+  width: 550px;
   padding: 5px;
 }
 #adminSection #articleCreationFeedback {

@@ -1,1 +1,9 @@
-import t from"mongoose";const e=new t.Schema({title:String,description:String,startDate:Date,endDate:Date}),o=t.model("events",e);export{o as Event};
+import mongoose from "mongoose";
+const schema = new mongoose.Schema({
+    title: String,
+    description: String,
+    startDate: Date,
+    endDate: Date,
+});
+const Event = mongoose.model("events", schema);
+export { Event };

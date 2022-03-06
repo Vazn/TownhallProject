@@ -3,22 +3,25 @@ import express from "express";
 import multer from "multer";
 import argon from "argon2";
 
-import { log, error } from "./helpers.js";
-import { CustomResponse } from "./types.js";
-import { User, Event } from "./models/index.js";
+import { __dirname, getDate, log, error } from "./helpers.js";
+import { CustomRequest, CustomResponse } from "./types.js";
+import { User, Article, Event } from "./models/index.js";
 
 
 const router = express.Router();
 const storage = multer.diskStorage({
    destination: (req, file, callback) => {
-      if (file.mimetype.includes("image")) callback(null, "uploads/images");
-      if (file.mimetype.includes("video")) callback(null, "uploads/videos");
-      if (file.mimetype.includes("application")) callback(null, "uploads/documents");
+      const root :string = __dirname + "/public/uploads"
+      if (file.mimetype.includes("image")) {
+         const path = root + "/images";
+         callback(null, path);
+      }
+      if (file.mimetype.includes("video")) callback(null, root + "/videos");
+      if (file.mimetype.includes("application")) callback(null, root + "/documents");
    },
    filename: (req, file, callback) => {
-      const { originalname } = file;
-
-      callback(null, `${formattedDate()}-${originalname}`);
+      const formattedName = getDate() + "-" + file.originalname;
+      callback(null, `${formattedName}`);
    }
 });
 const upload = multer({
@@ -26,8 +29,26 @@ const upload = multer({
 });
 //===========//==========>> ADMIN ROUTES <<=============//===========//
 
-router.post("/createArticle", upload.any(), (req, res) => {
-   console.log(req.body);
+router.post("/createArticle", upload.any(), async (req, res) => {
+   const title :string = req.body.title;
+   const content :string = req.body.content;
+   const imagePaths :Array<string> = [];
+   for (let i=0 ; i<req.files.length ; i++) imagePaths.push(req.files[i].filename);
+
+   try {
+      await Article.create({
+         title: title,
+         content: content,
+         imagePaths: imagePaths
+      });    
+      res.json({ success: true });
+   } catch (e) {
+      res.json({ success: false });
+   }
+});
+router.get("/getArticles", async (req, res) => {
+   const articles = await Article.find({});
+   res.json(articles);
 });
 
 //===========//=========>>  USER ROUTES <<===============//===========//
@@ -40,14 +61,12 @@ router.get("/getUsers", async (req :Request, res :Response) => {
       res.json({ message : e });
    }
 });
-router.post("/registerUser", async (req :Request, res :Response) => {
-   const user = new User({
-      email: req.body.email,
-      password: req.body.password,
-   });
-   
+router.post("/registerUser", async (req :Request, res :Response) => { 
    try {
-      const data :Object = await user.save();
+      const data :Object = await User.create({
+         email: req.body.email,
+         password: req.body.password,
+      });
       res.json(data);
    } catch (e) {
       res.json({ message: e });
@@ -92,7 +111,7 @@ router.get("/logged",  (req :Request, res :Response) => {
 
 router.get("/admin(.html)?", renderTemplate("admin", "Administration"));
 
-router.get("^/$|/index(.html)?", renderTemplate("index", "Commune de Rouffiac d'Aude"));
+router.get("^/$|/index(.html)?", getData("articles"), renderTemplate("index", "Commune de Rouffiac d'Aude"));
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
 router.get("/about(.html)?", renderTemplate("about", "A propos"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
@@ -100,13 +119,24 @@ router.get("/activities(.html)?", renderTemplate("activities", "Acitivités"));
 router.get("/*", renderTemplate("404", "Page introuvable"));
 
 function renderTemplate(page :string, title :string) {
-   return (req :Request, res :Response) => {
+   return (req :CustomRequest, res :Response) => {
+      let data = req.data ?? null;
+
       res.render(`${page}`, {
          stylesheet: `${page}.css`,
          script: `${page}.js`,
          title: title,
-         logged: req.session.authenticated
+         logged: req.session.authenticated,
+         data: data,
       });  
+   }
+}
+function getData(type :string) {
+   return async (req :CustomRequest, res, next) => {
+      if (type === "articles") {
+         req.data = await Article.find({}).lean();
+      }
+      next();
    }
 }
 function authentify(req :Request, res :Response, next :NextFunction) {
@@ -115,15 +145,6 @@ function authentify(req :Request, res :Response, next :NextFunction) {
       next();
    }
    else res.status(403).end();
-}
-
-function formattedDate() {
-   const now = new Date(Date.now());
-   const formatted = 
-   ('0'+ now.getDate()).slice(-2) + '-' +
-   ('0'+ (now.getMonth()+1)).slice(-2) + '-' +  now.getFullYear();
-
-   return formatted;
 }
 
 export { router };

@@ -1,1 +1,35 @@
-var n=this&&this.__awaiter||function(n,o,t,r){function i(n){return n instanceof t?n:new t((function(o){o(n)}))}return new(t||(t=Promise))((function(t,c){function e(n){try{u(r.next(n))}catch(n){c(n)}}function f(n){try{u(r.throw(n))}catch(n){c(n)}}function u(n){n.done?t(n.value):i(n.value).then(e,f)}u((r=r.apply(n,o||[])).next())}))};import o from"mongoose";import t from"path";import r from"chalk";import{fileURLToPath as i}from"url";import{url as c}from"./config/config.js";const e=i(import.meta.url),f=t.dirname(e);function u(){return n(this,void 0,void 0,(function*(){return yield o.connect(c).catch((n=>m(n)))}))}function a(n){console.log(r.bgGreen.black(n))}function m(n){console.log(r.bgRed.black(n))}export{e as __filename,f as __dirname,u as connect,a as log,m as error};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import mongoose from "mongoose";
+import path from "path";
+import chalk from "chalk";
+import { fileURLToPath } from "url";
+import { url } from "./config/config.js";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+function connect() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const database = yield mongoose.connect(url).catch(err => error(err));
+        return database;
+    });
+}
+function getDate() {
+    const now = new Date(Date.now());
+    const formatted = ('0' + now.getDate()).slice(-2) + '-' +
+        ('0' + (now.getMonth() + 1)).slice(-2) + '-' + now.getFullYear();
+    return formatted;
+}
+function log(message) {
+    console.log(chalk.bgGreen.black(message));
+}
+function error(message) {
+    console.log(chalk.bgRed.black(message));
+}
+export { __filename, __dirname, connect, getDate, log, error };

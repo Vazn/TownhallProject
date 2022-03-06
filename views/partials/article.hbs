@@ -1,5 +1,6 @@
 <article>
-   <h2> Titre 1 </h2>
+   <h2> {{title}} </h2>
+
    <div id="iconsDiv">
       {{!-- {{# if logged}} --}}
       <img class="icons gear" src="./images/gear.svg">
@@ -7,12 +8,10 @@
       {{!-- {{/if}} --}}
    </div>
    <div>
-      <img class="picture" src="https://picsum.photos/400/200">
-      <p>
-         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur aspernatur vero magnam nobis, cumque amet fugiat repellendus enim laboriosam, libero mollitia architecto nemo ratione laudantium excepturi corrupti. Dolores, totam aliquam!
-         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur aspernatur vero magnam nobis, cumque amet fugiat repellendus enim laboriosam, libero mollitia architecto nemo ratione laudantium excepturi corrupti. Dolores, totam aliquam!
-         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur aspernatur vero magnam nobis, cumque amet fugiat repellendus enim laboriosam, libero mollitia architecto nemo ratione laudantium excepturi corrupti. Dolores, totam aliquam!
-         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur aspernatur vero magnam nobis, cumque amet fugiat repellendus enim laboriosam, libero mollitia architecto nemo ratione laudantium excepturi corrupti. Dolores, totam aliquam!
-      </p>
+      {{#each imagePaths}}
+      <img class="picture" src="./uploads/images/{{this}}">
+      {{/each}}
+      <p> {{content}} </p>
    </div>
 </article>
+

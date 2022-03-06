@@ -45,6 +45,7 @@ function articleForm() {
 
       //== Quand un admin crée un article avec un titre qui existe déja => modifie l'article existant
       const data = await updateArticle(form);
+      console.log("data : ", data);
 
       if (data.success) {
          feedback.style.color = "var(--green)";
@@ -60,11 +61,9 @@ function articleForm() {
 
 async function updateArticle(form :HTMLFormElement) :Promise<any> {
    const formData  = new FormData(form);
-
    const data = await queryControler("createArticle", {
       method: "POST",
       body: formData,
-
    });
 
    return data;

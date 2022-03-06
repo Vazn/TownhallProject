@@ -23,7 +23,7 @@ article {
       width: 800px;
    }
    .picture {
-      float: left;
+      width: 250px;
       padding: 8px;
       margin: 5px 25px 5px 5px ;
       background: colors.get(grey1);
@@ -38,6 +38,10 @@ article {
       transform: scale(1.2);
    }
 }
+article:hover {
+   border: colors.get(primary2) 4px solid;
+}
+
 #adminSection {
    @include mixin.flex(column, center, center);
 
@@ -46,7 +50,7 @@ article {
       background: colors.get(grey1);
       padding: 15px;
       margin: 30px 0px 0px 0px;
-      border: colors.get(grey3) solid 1.5px;
+      border: colors.get(grey2) 4px solid;
    
       div {
          @include mixin.flex(column, center, center);
@@ -57,8 +61,8 @@ article {
          border: none;
       }
       textarea {
-         height: 100px;
-         width: 500px;
+         height: 150px;
+         width: 550px;
          padding: 5px;
       }
    }
