@@ -2,6 +2,7 @@ export { queryControler };
 
 async function queryControler(controler :string, options :Object) {
    const url :string = `http://localhost:8080/${controler}`;
+   console.log("url : ", url)
    let answer = null;
 
    try {

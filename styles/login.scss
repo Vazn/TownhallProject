@@ -1,25 +1,22 @@
 @use "modules/colors";
+@use "modules/mixin";
 
 section {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
+   @include mixin.flex(column, center, center);
 }
 
 form {
-   display: flex;
-   flex-direction: column;
+   @include mixin.flex(column, center, center);
+
    width: 250px;
-   align-items: center;
    background-color: color;
    padding: 10px 15px 15px 20px;
    background: colors.get(grey1);
    border: colors.get(grey2) 1px solid;
 
    div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      @include mixin.flex(column, center, center);
+
       margin: 10px;
       
    }

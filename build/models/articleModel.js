@@ -1,0 +1,1 @@
+import t from"mongoose";const e=new t.Schema({title:String,content:String,imagePath:String,postDate:Date,startDate:Date,endDate:Date}),a=t.model("events",e);export{a as Event};

@@ -1,12 +1,12 @@
+import express from "express";
+import session from "express-session";
+import cors from "cors";
+import path from "path";
+import hbs from "express-handlebars";
+
 import { port, corsOptions } from "./config/config.js";
 import { __dirname, log, error } from "./helpers.js";
 import { router } from "./router.js";
-
-import express from "express";
-import path from "path";
-import session from "express-session";
-import cors from "cors";
-import hbs from "express-handlebars";
 import { connect } from "./helpers.js";
 
 const app = express();
@@ -23,11 +23,12 @@ app.use(session({
    secret: "Zfc15441%rza24\\razr[<",
    cookie: { maxAge: 604800000 },
    saveUninitialized: false,
-   resave: false,
+   resave: true,
 }));
 app.use(express.json());
 
 app.use("/", router);
+
 app.listen(port, () => {
    console.log(`Server running on port ${port} ...`);
 });

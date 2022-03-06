@@ -5,22 +5,65 @@ section {
    @include mixin.flex(column, center, center);
 
    hr {
-      margin: 40px 0px 30px 0px;
+      margin: 30px 0px 30px 0px;
    }
-   article {
-      @include mixin.flex(column, center, center);
+}
+article {
+   @include mixin.flex(column, center, center);
+
+   border: colors.get(grey2) 4px solid;
+   padding: 10px 20px 20px 20px;
+
+   #iconsDiv {
+      position: relative;
+      top: -33px;
+      left: 360px;
    }
-   article h2 {
-      margin: 0px 0px 20px 0px;
-   }
-   article p {
+   p {
       width: 800px;
    }
-   article img {
+   .picture {
       float: left;
       padding: 8px;
       margin: 5px 25px 5px 5px ;
       background: colors.get(grey1);
       border: colors.get(grey3) solid 2px;
+   }
+   .icons {
+      cursor: pointer;
+      width: 20px;
+      margin: 0px 0px 0px 15px;
+   }
+   .icons:hover {
+      transform: scale(1.2);
+   }
+}
+#adminSection {
+   @include mixin.flex(column, center, center);
+
+   form {
+      @include mixin.flex(column, center, center);
+      background: colors.get(grey1);
+      padding: 15px;
+      margin: 30px 0px 0px 0px;
+      border: colors.get(grey3) solid 1.5px;
+   
+      div {
+         @include mixin.flex(column, center, center);
+         margin: 0px 0px 10px 0px;
+      }
+      input[type=text], textarea{
+         outline: none;
+         border: none;
+      }
+      textarea {
+         height: 100px;
+         width: 500px;
+         padding: 5px;
+      }
+   }
+   #articleCreationFeedback {
+      margin-top: 5px;
+      font-size: 1.4rem;
    }
 }

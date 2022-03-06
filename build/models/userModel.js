@@ -1,7 +1,1 @@
-import mongoose from "mongoose";
-const schema = new mongoose.Schema({
-    email: String,
-    password: String
-});
-const User = mongoose.model("users", schema);
-export { User };
+import o from"mongoose";const e=new o.Schema({email:String,password:String}),r=o.model("users",e);export{r as User};

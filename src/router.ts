@@ -1,85 +1,106 @@
+import { Request, Response, NextFunction } from 'express';
 import express from "express";
+import multer from "multer";
 import argon from "argon2";
-import mongoose from "mongoose";
 
 import { log, error } from "./helpers.js";
+import { CustomResponse } from "./types.js";
 import { User, Event } from "./models/index.js";
 
 
 const router = express.Router();
+const storage = multer.diskStorage({
+   destination: (req, file, callback) => {
+      if (file.mimetype.includes("image")) callback(null, "uploads/images");
+      if (file.mimetype.includes("video")) callback(null, "uploads/videos");
+      if (file.mimetype.includes("application")) callback(null, "uploads/documents");
+   },
+   filename: (req, file, callback) => {
+      const { originalname } = file;
+
+      callback(null, `${formattedDate()}-${originalname}`);
+   }
+});
+const upload = multer({
+   storage: storage,
+});
+//===========//==========>> ADMIN ROUTES <<=============//===========//
+
+router.post("/createArticle", upload.any(), (req, res) => {
+   console.log(req.body);
+});
 
 //===========//=========>>  USER ROUTES <<===============//===========//
 
-router.get("/getUsers", async (request, response) => {
+router.get("/getUsers", async (req :Request, res :Response) => {
    try {
       const users = await User.find();
-      response.json(users);
+      res.json(users);
    } catch (e) {
-      response.json({ message : e });
+      res.json({ message : e });
    }
 });
-router.post("/registerUser", async (request, response) => {
+router.post("/registerUser", async (req :Request, res :Response) => {
    const user = new User({
-      email: request.body.email,
-      password: request.body.password,
+      email: req.body.email,
+      password: req.body.password,
    });
    
    try {
       const data :Object = await user.save();
-      response.json(data);
+      res.json(data);
    } catch (e) {
-      response.json({ message: e });
+      res.json({ message: e });
    }
 });
-router.post("/login", async (request, response) => {
-   const email :string = request.body.email.trim();
-   const password :string = request.body.password.trim();
+router.post("/login", async (req :Request, res :Response) => {
+   const email :string = req.body.email.trim();
+   const password :string = req.body.password.trim();
 
    if (email !== "" && password !== "") {
 
-      if (request.session.authenticated) response.json({ success: false }); 
+      if (req.session.authenticated) res.json({ success: false }); 
       else {
          const existingUser = await User.findOne({ email: email });
          // await argon.verify("<big long hash>", password)
 
          if (existingUser !== null && existingUser.password === password) {
-            request.session.authenticated = true;
-            request.session.email = email;
-            request.session.save();
+            req.session.authenticated = true;
+            req.session.save();
 
-            response.status(301).json({ success: true });   
+            res.status(301).json({ success: true });   
          } 
             else {
-            response.status(403).json({ success: false });
+            res.status(403).json({ success: false });
          }
       }
    } else {
       error("Form data are missing or empty !");
-      response.status(400).json({ success: false });
+      res.status(400).json({ success: false });
    }
 });
-router.get("/logout",  (request, response) => {
-   request.session.destroy(() => {
-      response.redirect("/");
+router.get("/logout",  (req :Request, res :Response) => {
+   req.session.destroy(() => {
+      res.redirect("/");
    });
 });
-router.get("/logged",  (request, response) => {
-   response.send(request.session);
+router.get("/logged",  (req :Request, res :Response) => {
+   res.send(req.session);
 });
 
 //===========//========>> PAGES RENDERING <<============//===========//
+
+router.get("/admin(.html)?", renderTemplate("admin", "Administration"));
 
 router.get("^/$|/index(.html)?", renderTemplate("index", "Commune de Rouffiac d'Aude"));
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
 router.get("/about(.html)?", renderTemplate("about", "A propos"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
 router.get("/activities(.html)?", renderTemplate("activities", "Acitivités"));
-router.get("/admin(.html)?", authentify, renderTemplate("admin", "Administration"));
 router.get("/*", renderTemplate("404", "Page introuvable"));
 
-//== NOTE : Render any template, give the name, and any number of dynamic params
 function renderTemplate(page :string, title :string) {
-   return (req, res) => {
+   return (req :Request, res :Response) => {
       res.render(`${page}`, {
          stylesheet: `${page}.css`,
          script: `${page}.js`,
@@ -88,9 +109,21 @@ function renderTemplate(page :string, title :string) {
       });  
    }
 }
-function authentify(request, response, next) {
-   if (request.session.authenticated) next();
-   else response.status(403).end();
+function authentify(req :Request, res :Response, next :NextFunction) {
+   if (req.session.authenticated) {
+      log("You're logged in");
+      next();
+   }
+   else res.status(403).end();
+}
+
+function formattedDate() {
+   const now = new Date(Date.now());
+   const formatted = 
+   ('0'+ now.getDate()).slice(-2) + '-' +
+   ('0'+ (now.getMonth()+1)).slice(-2) + '-' +  now.getFullYear();
+
+   return formatted;
 }
 
 export { router };

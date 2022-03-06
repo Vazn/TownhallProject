@@ -1,8 +1,9 @@
-import { queryControler } from './modules/fetchModule.js';
+import { buttonsHandler, articleForm } from "./modules/articlesModule.js";
 
 (async () => {
-
-   // queryControler("fetch");
+   
+   buttonsHandler();
+   articleForm();
 
 })();
 

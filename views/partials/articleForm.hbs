@@ -1,4 +1,4 @@
-<form name="articleForm" method="POST">
+<form method="POST">
    <div>
       <label for="title"> Titre : </label>
       <input type="text" name="title" placeholder="Titre">
@@ -9,10 +9,11 @@
    </div>
    <div>
       <label class="fileUpload">
-         <input type="file"/>
+         <input type="file" name="image" accept=".gif,.jpg,.jpeg,.png,.svg,.webp" multiple />
          Image
       </label>
    </div>
 
    <input type="submit" value="Créer article">
 </form>
+<p id="articleCreationFeedback"></p>

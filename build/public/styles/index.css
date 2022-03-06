@@ -20,24 +20,74 @@ section {
   justify-content: center;
 }
 section hr {
-  margin: 40px 0px 30px 0px;
+  margin: 30px 0px 30px 0px;
 }
-section article {
+
+article {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: var(--grey2) 4px solid;
+  padding: 10px 20px 20px 20px;
 }
-section article h2 {
-  margin: 0px 0px 20px 0px;
+article #iconsDiv {
+  position: relative;
+  top: -33px;
+  left: 360px;
 }
-section article p {
+article p {
   width: 800px;
 }
-section article img {
+article .picture {
   float: left;
   padding: 8px;
   margin: 5px 25px 5px 5px;
   background: var(--grey1);
   border: var(--grey3) solid 2px;
+}
+article .icons {
+  cursor: pointer;
+  width: 20px;
+  margin: 0px 0px 0px 15px;
+}
+article .icons:hover {
+  transform: scale(1.2);
+}
+
+#adminSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#adminSection form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--grey1);
+  padding: 15px;
+  margin: 30px 0px 0px 0px;
+  border: var(--grey3) solid 1.5px;
+}
+#adminSection form div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 10px 0px;
+}
+#adminSection form input[type=text], #adminSection form textarea {
+  outline: none;
+  border: none;
+}
+#adminSection form textarea {
+  height: 100px;
+  width: 500px;
+  padding: 5px;
+}
+#adminSection #articleCreationFeedback {
+  margin-top: 5px;
+  font-size: 1.4rem;
 }
