@@ -8,9 +8,6 @@
 
 <img src="https://img.shields.io/badge/Using-Handlebars-e98a2b?style=for-the-badge">&nbsp;&nbsp;
 <img src="https://img.shields.io/badge/Styled%20by-SASS-%23b19cd9?style=for-the-badge">
-
-
-Internship project for the townhall of Rouffiac d'Aude
 ## ***Features***
 
 ✅ **Connection interface 75% ** <br>
