@@ -38,7 +38,7 @@
 textarea {
    resize: none;
 }
-a:link, a:visited, a:active {
+a:link, a:visited {
    font-family: 'Montserrat Alternates', sans-serif;
    font-weight: 200;
    color: colors.get(white);
@@ -66,7 +66,10 @@ body {
          li {
             margin: 0px 15px 0px 15px;
             padding: 5px;
-            font-size: 1.2rem;
+            @include mixin.desktop {
+               font-size: 1.2rem;
+            }
+            font-size: 0.8rem;
          }
       }
    }
@@ -172,9 +175,23 @@ hr {
 }
 @keyframes fadeOut {
    from {
-      opacity: 0;
+      opacity: 1;
    } 
    to {
-      opacity: 1;
+      opacity: 0;
    }
+}
+@keyframes slideOut {
+   0% {
+      opacity: 1;
+      transform: translateX(0px);
+   }
+   100% {
+      opacity: 0;
+      transform: translateX(3000px);
+   }
+}
+@keyframes slideUp {
+   0% {transform: translateY(0px);}
+   100% {transform: translateY(-400px);}
 }

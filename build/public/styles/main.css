@@ -54,7 +54,7 @@ textarea {
   resize: none;
 }
 
-a:link, a:visited, a:active {
+a:link, a:visited {
   font-family: "Montserrat Alternates", sans-serif;
   font-weight: 200;
   color: var(--white);
@@ -93,7 +93,12 @@ body header > nav ul {
 body header > nav ul li {
   margin: 0px 15px 0px 15px;
   padding: 5px;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
+}
+@media (min-width: 850px) {
+  body header > nav ul li {
+    font-size: 1.2rem;
+  }
 }
 body main {
   display: flex;
@@ -204,9 +209,27 @@ hr {
 }
 @keyframes fadeOut {
   from {
-    opacity: 0;
+    opacity: 1;
   }
   to {
+    opacity: 0;
+  }
+}
+@keyframes slideOut {
+  0% {
     opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(3000px);
+  }
+}
+@keyframes slideUp {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-400px);
   }
 }

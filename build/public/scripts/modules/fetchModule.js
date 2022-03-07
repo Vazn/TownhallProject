@@ -8,11 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 export { queryControler };
-function queryControler(controler, options) {
+function queryControler(args, options) {
     return __awaiter(this, void 0, void 0, function* () {
-        const url = `http://localhost:8080/${controler}`;
-        console.log("url : ", url);
+        let url = `http://localhost:8080/`;
         let answer = null;
+        for (let arg of args)
+            url += arg.trim().replace(/ /g, '_');
+        console.log("url : ", url);
         try {
             const response = yield fetch(url, options);
             answer = yield response.json();

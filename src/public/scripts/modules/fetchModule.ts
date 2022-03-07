@@ -1,13 +1,14 @@
 export { queryControler };
 
-async function queryControler(controler :string, options :Object) {
-   const url :string = `http://localhost:8080/${controler}`;
-   console.log("url : ", url)
+async function queryControler(args :Array<string>, options :Object) {
+   let url :string = `http://localhost:8080/`;
    let answer = null;
 
+   for (let arg of args) url += arg.trim().replace(/ /g,'_');
+   console.log("url : ", url);
+   
    try {
       const response :Response = await fetch(url, options);
-
       answer = await response.json();
    } catch (e) {
       return null;

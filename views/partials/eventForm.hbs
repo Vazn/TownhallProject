@@ -1,0 +1,26 @@
+<section id="adminSection">
+   <form name="eventCreate" method="POST">
+      <div>
+         <label for="title"> Nom de l'évenement : </label>
+         <input type="text" name="title" required>
+      </div>
+      <div>
+         <label for="start">Date de début :</label>
+         <input type="datetime-local" name="start" min="2022-01-01T00:00" max="2060-01-01T00:00" value="2022-01-01T00:00">
+      </div>
+      <div>
+         <label for="end">Date de fin :</label>
+         <input type="datetime-local" name="end" min="2022-01-01T00:00" max="2060-01-01T00:00" value="2022-01-01T00:00">
+      </div>
+      <div>
+         <select name="type">
+            <option value="Once">Ponctuel</option>
+            <option value="Weekly">Hebdomadaire</option>
+            <option value="Monthly">Mensuel</option>
+            <option value="Annualy">Annuel</option>
+         </select>
+      </div>
+      <input type="submit" value="Créer évènement">
+   </form>
+   <p id="eventCreateFeedback"></p>
+</section>

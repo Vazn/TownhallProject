@@ -1,17 +1,20 @@
 import { queryControler } from './fetchModule.js';
 
+const articles :NodeListOf<HTMLElement> = document.querySelectorAll("article");
+const hr :NodeListOf<HTMLElement> = document.querySelectorAll("hr");
+
 function buttonsHandler() {
    const gears :NodeListOf<HTMLElement> = document.querySelectorAll(".gear");
    const trash :NodeListOf<HTMLElement> = document.querySelectorAll(".trash");
-   const articles :NodeListOf<HTMLElement> = document.querySelectorAll("article");
    
    for (let i=0 ; i<gears.length ; i++) {
       const articleTitle :string =  articles[i].childNodes[1].textContent;
-      gears[i].addEventListener("click", updateEvent(articleTitle));
-      trash[i].addEventListener("click", deleteEvent(articleTitle));
+      console.log("articleTitle : ", articleTitle)
+      gears[i].addEventListener("click", updateEvent(articleTitle, i));
+      trash[i].addEventListener("click", deleteEvent(articleTitle, i));
    }
 }
-function updateEvent(title :string) {
+function updateEvent(title :string, i :number) {
    const h2 :HTMLElement = document.querySelector("#adminSection input[name=title]");
 
    return (e :Event) => {
@@ -20,15 +23,20 @@ function updateEvent(title :string) {
       window.scroll(0, 5000);
    }
 }
-function deleteEvent(title :string) {
+function deleteEvent(title :string, i :number) {
    return async (e :Event) => {
       e.preventDefault();
       
-      const data = await queryControler(`/deleteArticle/${title}`, {
+      const data = await queryControler([`deleteArticle/`, title], {
          method: "GET",
       });
       if (data.success) {
-         
+         articles[i].style.animation = "fadeOut 0.2s forwards, slideOut 3.5s forwards";
+         hr[i].style.animation = "fadeOut 0.2s forwards, slideOut 3.5s forwards";   
+         setTimeout(() => {
+            hr[i].style.display = "none";
+            articles[i].style.display = "none";
+         }, 1500);
       } else {
 
       }
@@ -61,7 +69,7 @@ function articleForm() {
 
 async function updateArticle(form :HTMLFormElement) :Promise<any> {
    const formData  = new FormData(form);
-   const data = await queryControler("createArticle", {
+   const data = await queryControler(["articleCreate"], {
       method: "POST",
       body: formData,
    });

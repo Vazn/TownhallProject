@@ -29,38 +29,50 @@ const upload = multer({
 });
 //===========//==========>> ADMIN ROUTES <<=============//===========//
 
-router.post("/createArticle", upload.any(), async (req, res) => {
-   const title :string = req.body.title;
-   const content :string = req.body.content;
+router.get("/deleteArticle/:title", authentify, async (req, res) => {
+   // await Article.deleteOne({title: req.params.title});
+   res.json({ success: true });
+});
+router.post("/articleCreate", authentify, upload.any(), async (req, res) => {
+   const { title, content }  = req.body;
    const imagePaths :Array<string> = [];
-   for (let i=0 ; i<req.files.length ; i++) imagePaths.push(req.files[i].filename);
+   const result = await Article.findOne({title: title});
 
+   if (result !== null) {
+      res.json({ success: false });
+   } else {
+      for (let i=0 ; i<req.files.length ; i++) imagePaths.push(req.files[i].filename);
+      try {
+         await Article.create({
+            title: title,
+            content: content,
+            imagePaths: imagePaths
+         });    
+         res.json({ success: true });
+      } catch (e) {
+         res.json({ success: false });
+      }
+   }
+});
+router.post("/eventCreate", authentify, async (req, res) => {
+   const { title, type, description, start, end }  = req.body;
    try {
-      await Article.create({
+      await Event.create({
          title: title,
-         content: content,
-         imagePaths: imagePaths
+         type: type,
+         description: description,
+         start: start,
+         end: end,
       });    
       res.json({ success: true });
    } catch (e) {
+      console.log("e : ", e)
       res.json({ success: false });
    }
-});
-router.get("/getArticles", async (req, res) => {
-   const articles = await Article.find({});
-   res.json(articles);
 });
 
 //===========//=========>>  USER ROUTES <<===============//===========//
 
-router.get("/getUsers", async (req :Request, res :Response) => {
-   try {
-      const users = await User.find();
-      res.json(users);
-   } catch (e) {
-      res.json({ message : e });
-   }
-});
 router.post("/registerUser", async (req :Request, res :Response) => { 
    try {
       const data :Object = await User.create({
@@ -103,28 +115,33 @@ router.get("/logout",  (req :Request, res :Response) => {
       res.redirect("/");
    });
 });
-router.get("/logged",  (req :Request, res :Response) => {
-   res.send(req.session);
-});
 
+//===========//==============>> AJAX <<=================//===========//
+
+router.get("/getEvents",  async (req :Request, res :Response) => {
+   const data = await Event.find({}).lean();
+   res.json(data);
+});
 //===========//========>> PAGES RENDERING <<============//===========//
 
-router.get("/admin(.html)?", renderTemplate("admin", "Administration"));
+router.get("/admin(.html)?", renderTemplate("admin", "Administration", [], []));
 
 router.get("^/$|/index(.html)?", getData("articles"), renderTemplate("index", "Commune de Rouffiac d'Aude"));
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
 router.get("/about(.html)?", renderTemplate("about", "A propos"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
 router.get("/activities(.html)?", renderTemplate("activities", "Acitivités"));
-router.get("/*", renderTemplate("404", "Page introuvable"));
 
-function renderTemplate(page :string, title :string) {
+router.get("/calendar(.html)?", renderTemplate("calendar", "Calendrier"));
+
+// router.get("/*", renderTemplate("404", "Page introuvable"));
+
+function renderTemplate(page :string, title :string, scripts :Array<string> = [], styles :Array<string> = []) {
    return (req :CustomRequest, res :Response) => {
       let data = req.data ?? null;
 
       res.render(`${page}`, {
-         stylesheet: `${page}.css`,
-         script: `${page}.js`,
+         page: page,
          title: title,
          logged: req.session.authenticated,
          data: data,
@@ -134,17 +151,24 @@ function renderTemplate(page :string, title :string) {
 function getData(type :string) {
    return async (req :CustomRequest, res, next) => {
       if (type === "articles") {
-         req.data = await Article.find({}).lean();
+         const data = await Article.find({}).lean();
+         for (let obj of data) {
+            obj.title =  obj.title.replace(/_/g,' ')         
+         }
+         req.data = data;
       }
       next();
    }
 }
 function authentify(req :Request, res :Response, next :NextFunction) {
    if (req.session.authenticated) {
-      log("You're logged in");
+      log("Authentication : OK");
       next();
    }
-   else res.status(403).end();
+   else{
+      error("Acces denied");
+      res.status(403).end();
+   } 
 }
 
 export { router };

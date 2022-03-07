@@ -8,17 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { queryControler } from './fetchModule.js';
+const articles = document.querySelectorAll("article");
+const hr = document.querySelectorAll("hr");
 function buttonsHandler() {
     const gears = document.querySelectorAll(".gear");
     const trash = document.querySelectorAll(".trash");
-    const articles = document.querySelectorAll("article");
     for (let i = 0; i < gears.length; i++) {
         const articleTitle = articles[i].childNodes[1].textContent;
-        gears[i].addEventListener("click", updateEvent(articleTitle));
-        trash[i].addEventListener("click", deleteEvent(articleTitle));
+        console.log("articleTitle : ", articleTitle);
+        gears[i].addEventListener("click", updateEvent(articleTitle, i));
+        trash[i].addEventListener("click", deleteEvent(articleTitle, i));
     }
 }
-function updateEvent(title) {
+function updateEvent(title, i) {
     const h2 = document.querySelector("#adminSection input[name=title]");
     return (e) => {
         e.preventDefault();
@@ -26,13 +28,19 @@ function updateEvent(title) {
         window.scroll(0, 5000);
     };
 }
-function deleteEvent(title) {
+function deleteEvent(title, i) {
     return (e) => __awaiter(this, void 0, void 0, function* () {
         e.preventDefault();
-        const data = yield queryControler(`/deleteArticle/${title}`, {
+        const data = yield queryControler([`deleteArticle/`, title], {
             method: "GET",
         });
         if (data.success) {
+            articles[i].style.animation = "fadeOut 0.2s forwards, slideOut 3.5s forwards";
+            hr[i].style.animation = "fadeOut 0.2s forwards, slideOut 3.5s forwards";
+            setTimeout(() => {
+                hr[i].style.display = "none";
+                articles[i].style.display = "none";
+            }, 1500);
         }
         else {
         }
@@ -63,7 +71,7 @@ function articleForm() {
 function updateArticle(form) {
     return __awaiter(this, void 0, void 0, function* () {
         const formData = new FormData(form);
-        const data = yield queryControler("createArticle", {
+        const data = yield queryControler(["articleCreate"], {
             method: "POST",
             body: formData,
         });

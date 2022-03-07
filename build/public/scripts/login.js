@@ -7,38 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { queryControler } from './modules/fetchModule.js';
+import { postTextForm } from './modules/formModules.js';
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    loginForm();
+    postTextForm("login");
 }))();
-function loginForm() {
-    const form = document.querySelector("form[name=loginForm]");
-    const main = document.querySelector("main");
-    const feedback = document.querySelector("#loginFeedback");
-    form.addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
-        e.preventDefault();
-        const formattedData = new FormData(form);
-        const json = JSON.stringify(Object.fromEntries(formattedData));
-        const answer = yield queryControler("login", {
-            method: "POST",
-            body: json,
-            headers: {
-                "Content-Type": "application/json"
-            },
-        });
-        if (answer.success) {
-            feedback.style.color = "var(--green)";
-            feedback.textContent = "";
-            feedback.textContent = "Bienvenue !";
-            setTimeout(() => {
-                location.replace("/index");
-            }, 500);
-        }
-        else {
-            feedback.style.color = "var(--red)";
-            feedback.textContent = "";
-            feedback.textContent = "Connexion échouée, ce compte n'existe pas";
-        }
-        return answer;
-    }));
-}

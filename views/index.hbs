@@ -1,13 +1,7 @@
 <main>
-   <section>
-      {{#each data}}
-      {{> article}}
-      <hr>
-      {{/each}}
-   </section>
-   {{!-- {{# if logged}} --}}
-   <section id="adminSection">
+   {{> articlesSection}}
+
+   {{# if logged}}
       {{> articleForm}}
-   </section>
-   {{!-- {{/ if}} --}}
+   {{/ if}}
 </main>

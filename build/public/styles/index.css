@@ -14,6 +14,10 @@
   --white: #fefefe;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 section {
   display: flex;
   flex-direction: column;
@@ -29,31 +33,50 @@ article {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  opacity: 1;
   border: var(--grey2) 4px solid;
   padding: 10px 20px 20px 20px;
+  width: 80%;
+  min-width: 800px;
 }
 article #iconsDiv {
-  position: relative;
-  top: -33px;
-  left: 360px;
+  margin: 0px 0px 10px 0px;
+  top: -40px;
+  left: 47%;
 }
-article p {
-  width: 800px;
-}
-article .picture {
-  width: 250px;
-  padding: 8px;
-  margin: 5px 25px 5px 5px;
-  background: var(--grey1);
-  border: var(--grey3) solid 2px;
+@media (min-width: 850px) {
+  article #iconsDiv {
+    position: relative;
+    margin: 5px 0px 5px 0px;
+  }
 }
 article .icons {
   cursor: pointer;
   width: 20px;
-  margin: 0px 0px 0px 15px;
+  margin: 0px 0px 0px 10px;
 }
 article .icons:hover {
   transform: scale(1.2);
+}
+article p {
+  text-align: center;
+}
+article .imgContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0px 0px 0px;
+  flex-wrap: wrap;
+}
+article .picture {
+  height: 150px;
+  padding: 4px;
+  margin: 10px;
+  background: var(--grey2);
+}
+article .picture:hover {
+  cursor: pointer;
 }
 
 article:hover {
@@ -88,9 +111,15 @@ article:hover {
   border: none;
 }
 #adminSection form textarea {
-  height: 150px;
-  width: 550px;
+  width: 400px;
+  height: 250px;
   padding: 5px;
+}
+@media (min-width: 850px) {
+  #adminSection form textarea {
+    width: 550px;
+    height: 150px;
+  }
 }
 #adminSection #articleCreationFeedback {
   margin-top: 5px;

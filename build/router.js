@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import express from "express";
 import multer from "multer";
 import { __dirname, getDate, log, error } from "./helpers.js";
-import { User, Article } from "./models/index.js";
+import { User, Article, Event } from "./models/index.js";
 const router = express.Router();
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
@@ -32,35 +32,47 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
 });
-router.post("/createArticle", upload.any(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const title = req.body.title;
-    const content = req.body.content;
+router.get("/deleteArticle/:title", authentify, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.json({ success: true });
+}));
+router.post("/articleCreate", authentify, upload.any(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { title, content } = req.body;
     const imagePaths = [];
-    for (let i = 0; i < req.files.length; i++)
-        imagePaths.push(req.files[i].filename);
+    const result = yield Article.findOne({ title: title });
+    if (result !== null) {
+        res.json({ success: false });
+    }
+    else {
+        for (let i = 0; i < req.files.length; i++)
+            imagePaths.push(req.files[i].filename);
+        try {
+            yield Article.create({
+                title: title,
+                content: content,
+                imagePaths: imagePaths
+            });
+            res.json({ success: true });
+        }
+        catch (e) {
+            res.json({ success: false });
+        }
+    }
+}));
+router.post("/eventCreate", authentify, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { title, type, description, start, end } = req.body;
     try {
-        yield Article.create({
+        yield Event.create({
             title: title,
-            content: content,
-            imagePaths: imagePaths
+            type: type,
+            description: description,
+            start: start,
+            end: end,
         });
         res.json({ success: true });
     }
     catch (e) {
+        console.log("e : ", e);
         res.json({ success: false });
-    }
-}));
-router.get("/getArticles", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const articles = yield Article.find({});
-    res.json(articles);
-}));
-router.get("/getUsers", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const users = yield User.find();
-        res.json(users);
-    }
-    catch (e) {
-        res.json({ message: e });
     }
 }));
 router.post("/registerUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -103,23 +115,23 @@ router.get("/logout", (req, res) => {
         res.redirect("/");
     });
 });
-router.get("/logged", (req, res) => {
-    res.send(req.session);
-});
-router.get("/admin(.html)?", renderTemplate("admin", "Administration"));
+router.get("/getEvents", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield Event.find({}).lean();
+    res.json(data);
+}));
+router.get("/admin(.html)?", renderTemplate("admin", "Administration", [], []));
 router.get("^/$|/index(.html)?", getData("articles"), renderTemplate("index", "Commune de Rouffiac d'Aude"));
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
 router.get("/about(.html)?", renderTemplate("about", "A propos"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
 router.get("/activities(.html)?", renderTemplate("activities", "Acitivités"));
-router.get("/*", renderTemplate("404", "Page introuvable"));
-function renderTemplate(page, title) {
+router.get("/calendar(.html)?", renderTemplate("calendar", "Calendrier"));
+function renderTemplate(page, title, scripts = [], styles = []) {
     return (req, res) => {
         var _a;
         let data = (_a = req.data) !== null && _a !== void 0 ? _a : null;
         res.render(`${page}`, {
-            stylesheet: `${page}.css`,
-            script: `${page}.js`,
+            page: page,
             title: title,
             logged: req.session.authenticated,
             data: data,
@@ -129,17 +141,23 @@ function renderTemplate(page, title) {
 function getData(type) {
     return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         if (type === "articles") {
-            req.data = yield Article.find({}).lean();
+            const data = yield Article.find({}).lean();
+            for (let obj of data) {
+                obj.title = obj.title.replace(/_/g, ' ');
+            }
+            req.data = data;
         }
         next();
     });
 }
 function authentify(req, res, next) {
     if (req.session.authenticated) {
-        log("You're logged in");
+        log("Authentication : OK");
         next();
     }
-    else
+    else {
+        error("Acces denied");
         res.status(403).end();
+    }
 }
 export { router };

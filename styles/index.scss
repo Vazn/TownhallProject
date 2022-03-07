@@ -1,6 +1,9 @@
 @use "modules/colors";
 @use "modules/mixin";
 
+body {
+   overflow-x: hidden;
+}
 section {
    @include mixin.flex(column, center, center);
 
@@ -11,31 +14,46 @@ section {
 article {
    @include mixin.flex(column, center, center);
 
+   opacity: 1;
    border: colors.get(grey2) 4px solid;
    padding: 10px 20px 20px 20px;
+   width: 80%;
+   min-width: 800px;
 
    #iconsDiv {
-      position: relative;
-      top: -33px;
-      left: 360px;
-   }
-   p {
-      width: 800px;
-   }
-   .picture {
-      width: 250px;
-      padding: 8px;
-      margin: 5px 25px 5px 5px ;
-      background: colors.get(grey1);
-      border: colors.get(grey3) solid 2px;
+      @include mixin.desktop {
+         position: relative;
+         margin: 5px 0px 5px 0px;
+      };
+      margin: 0px 0px 10px 0px;
+      top: -40px;
+      left: 47%;
    }
    .icons {
       cursor: pointer;
       width: 20px;
-      margin: 0px 0px 0px 15px;
+      margin: 0px 0px 0px 10px;
    }
    .icons:hover {
       transform: scale(1.2);
+   }
+   p {
+      text-align: center;
+   }
+   .imgContainer {
+      @include mixin.flex(row, center, center);
+      margin: 20px 0px 0px 0px ;
+      flex-wrap: wrap;
+   }
+   .picture {
+      height: 150px;
+      padding: 4px;
+      margin: 10px;
+
+      background: colors.get(grey2);
+   }
+   .picture:hover {
+      cursor: pointer;
    }
 }
 article:hover {
@@ -61,8 +79,12 @@ article:hover {
          border: none;
       }
       textarea {
-         height: 150px;
-         width: 550px;
+         @include mixin.desktop {
+            width: 550px;
+            height: 150px;
+         }
+         width: 400px;
+         height: 250px;
          padding: 5px;
       }
    }
