@@ -15,12 +15,12 @@
 }
 
 #calendar {
-  width: 450px;
+  width: 80%;
+  height: 650px;
 }
-@media (min-width: 850px) {
+@media (max-width: 850px) {
   #calendar {
-    width: 80%;
-    height: 650px;
+    width: 450px;
   }
 }
 #calendar .fc-button {
@@ -39,11 +39,11 @@
   box-shadow: none;
 }
 #calendar .fc-toolbar-title {
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
-@media (min-width: 850px) {
+@media (max-width: 850px) {
   #calendar .fc-toolbar-title {
-    font-size: 1.4rem;
+    font-size: 1rem;
   }
 }
 

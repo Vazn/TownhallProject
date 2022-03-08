@@ -2,7 +2,7 @@
 @use "modules/mixin";
 
 //== NOTE : Use this inside anythign to make responsive
-@include mixin.desktop {
+@include mixin.mobile {
 };
 
 ::-webkit-scrollbar {
@@ -35,13 +35,28 @@
    text-decoration: none;
    font-family: 'Sen', sans-serif;
 }
+.bigHr {
+   opacity: 0.3;
+   height: 10px;
+   width: 500px;
+}
+h2 {
+   font-family: 'Montserrat Alternates', sans-serif;
+   font-size: 2rem;
+}
+a, a:link, a:visited {
+   font-size: 1.1rem;
+   transition: all 0.4s;
+   font-family: 'Montserrat', sans-serif;
+   font-weight: 500;
+   color: colors.get(black);
+}
+.weightedText {
+   font-weight: 1000;
+   font-size: 1.5rem;
+}
 textarea {
    resize: none;
-}
-a:link, a:visited {
-   font-family: 'Montserrat Alternates', sans-serif;
-   font-weight: 200;
-   color: colors.get(white);
 }
 
 body {
@@ -50,39 +65,28 @@ body {
    min-height: 100vh;
 
    header {
-      @include mixin.flex(column, flex-start, center);
-
+      @include mixin.flex(column, flex-start, flex-start);
+      
+      z-index: 500;
+      background-color: colors.get(white);
+      height: 100px;
       width: 100%;
-      padding: 5px;
-      background: colors.get(black);
+      border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
    }
-   header > nav {
-      @include mixin.flex(row, center, center);
-      margin-left: 5px;
-
-      ul {
-         @include mixin.flex(row, center, center);
-
-         li {
-            margin: 0px 15px 0px 15px;
-            padding: 5px;
-            @include mixin.desktop {
-               font-size: 1.2rem;
-            }
-            font-size: 0.8rem;
-         }
-      }
-   }
-
    main {
-      @include mixin.flex(column, center, center);
+      @include mixin.flex(column, center, flex-start);
       animation: fadeIn 0.2s 0.3s forwards;
 
+      @include mixin.mobile {
+         width: 100%;
+      }
+      background-color: colors.get(white);
       opacity: 0;
-      width: 100%;
-      margin: 20px 20px 50px 20px;
+      width: 80%;
+      min-height: 650.5px;
+      padding: 20px 20px 50px 20px;
    }
-
    footer {
       @include mixin.flex(column, center, center);
       animation: fadeIn 0.2s 0.3s forwards;
@@ -91,42 +95,65 @@ body {
       margin-top:auto; 
       width: 100%;
       height: 60px;
-      background: colors.get(black);
+      background-color: colors.get(white);
+      border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
    }
    footer > nav {
       ul {
          @include mixin.flex(row, center, center);
-
-         li {
-            margin: 0px 15px 0px 15px;
-            padding: 5px;
-            font-size: 1.2rem;
+         a {
+            margin: 15px;
+            padding: 10px;
          }
       }
    }
 
-
-   nav ul li a {
-      transition: all 0.1s;
-   }
-   nav ul li a:hover {
-      color: colors.get(primary);
+   header a:hover, footer a:hover {
+      background-color: colors.get(primary);
+      color: colors.get(black);
    }
 }
 
-h2 {
-   font-family: 'Montserrat Alternates', sans-serif;
-   font-size: 2rem;
+header > nav {
+   @include mixin.flex(row, center, center);
+   width: 100%;
+   height: 100%;
+
+   img {
+      position: absolute;
+      cursor: pointer;
+      top: 5px;
+      height: 90px;
+   }
+   ul {
+      @include mixin.flex(row, center, center);
+      margin-right: 5px;
+      a{
+         margin: 15px;
+         padding: 10px;
+      }  
+      #leftMenu {
+         @include mixin.flex(row, center, center);
+         margin-right: 200px;
+      }
+      #rightMenu {
+         @include mixin.flex(row, center, center);
+      }
+   }
 }
 
-#navBlason {
-   cursor: pointer;
-   top: 4px;
-   left: 5px;
-   height: 55px;
-}
-#navBlason:hover {
-   animation: wiggle 0.5s infinite forwards alternate;
+#image {
+   background-image: url("../images/vignes.jpg");
+   opacity: 0.5;
+   z-index: -50000;
+   position: fixed;
+   top: 0px;
+   height: 1000px; 
+   width: 100%;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
 }
 
 input {

@@ -30,7 +30,7 @@ const upload = multer({
 //===========//==========>> ADMIN ROUTES <<=============//===========//
 
 router.get("/deleteArticle/:title", authentify, async (req, res) => {
-   // await Article.deleteOne({title: req.params.title});
+   await Article.deleteOne({title: req.params.title});
    res.json({ success: true });
 });
 router.post("/articleCreate", authentify, upload.any(), async (req, res) => {
@@ -124,17 +124,15 @@ router.get("/getEvents",  async (req :Request, res :Response) => {
 });
 //===========//========>> PAGES RENDERING <<============//===========//
 
-router.get("/admin(.html)?", renderTemplate("admin", "Administration", [], []));
-
 router.get("^/$|/index(.html)?", getData("articles"), renderTemplate("index", "Commune de Rouffiac d'Aude"));
+router.get("/about(.html)?", renderTemplate("about", "La municipalité"));
+router.get("/calendar(.html)?", renderTemplate("calendar", "Agenda et activités"));
+router.get("/procedures(.html)?", renderTemplate("procedures", "Vos démarches"));
+
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
-router.get("/about(.html)?", renderTemplate("about", "A propos"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
-router.get("/activities(.html)?", renderTemplate("activities", "Acitivités"));
 
-router.get("/calendar(.html)?", renderTemplate("calendar", "Calendrier"));
-
-// router.get("/*", renderTemplate("404", "Page introuvable"));
+router.get("/*", renderTemplate("404", "Page introuvable"));
 
 function renderTemplate(page :string, title :string, scripts :Array<string> = [], styles :Array<string> = []) {
    return (req :CustomRequest, res :Response) => {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 32 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <rect id="Artboard2" x="0" y="0" width="31.794" height="22.105" style="fill:none;"/>
+    <g>
+        <g>
+            <path d="M16.257,21.348C16.257,21.348 19.92,19.97 19.92,16.466C19.92,12.962 19.92,13.293 19.92,13.293L12.593,13.293L12.593,16.466C12.593,19.97 16.257,21.348 16.257,21.348Z" style="fill:rgb(242,210,68);stroke:rgb(63,63,63);stroke-width:0.15px;"/>
+            <path d="M12.593,13.293L12.593,14.782L15.275,17.463L15.275,20.841C15.834,21.189 16.257,21.348 16.257,21.348C16.257,21.348 16.68,21.189 17.239,20.841L17.239,17.463L19.921,14.782L19.921,13.293L18.661,13.293L16.257,15.696L13.853,13.293L12.593,13.293Z" style="fill:rgb(215,64,38);stroke:rgb(63,63,63);stroke-width:0.15px;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;"/>
+        </g>
+        <g transform="matrix(5.26246,0,0,5.26246,-114.48,-39.1644)">
+            <text x="21.965px" y="8.615px" style="font-family:'ForteMT', 'Forte', cursive;font-style:italic;font-size:1.396px;">Ro<tspan x="23.79px 24.629px 25.239px 25.849px 26.296px " y="8.615px 8.615px 8.615px 8.615px 8.615px ">uffia</tspan>c</text>
+            <text x="22.903px" y="9.565px" style="font-family:'ForteMT', 'Forte', cursive;font-style:italic;font-size:0.95px;">d&apos;<tspan x="23.762px 24.492px 25.063px " y="9.565px 9.565px 9.565px ">Aud</tspan>e</text>
+        </g>
+    </g>
+</svg>

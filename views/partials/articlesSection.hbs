@@ -1,26 +1,25 @@
 <section>
    {{#each data}}
    <article>
-      <h2> {{title}} </h2>
+      <div class="imgContainer">
+         {{#each imagePaths}}
+            <img class="picture" src="./uploads/images/{{this}}">
+         {{/each}}
+      </div>
 
+
+      <div class="articleContent">
+      <div id="cardHeader">
+         <h3> {{title}} </h3>
       {{#if ../logged}}
-      <div id="iconsDiv">
          <img class="icons gear" src="./images/gear.svg">
          <img class="icons trash" src="./images/trash.svg">
-      </div>
       {{/if}}
-
-      <div>
+      </div>
+         <hr class="littleHr">
          <p> {{content}} </p>
-         <div class="imgContainer">
-            {{#each imagePaths}}
-               <a target="_blank" href="./uploads/images/{{this}}">
-                  <img class="picture" src="./uploads/images/{{this}}">
-               </a>
-            {{/each}}
-         </div>
       </div>
    </article>
-   <hr>
+
    {{/each}}
 </section>
