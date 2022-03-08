@@ -1,17 +1,87 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 1 | @use "modules/colors";
- *   | ^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   styles\news.scss 1:1  root stylesheet */
+:root {
+  --primary: #F2D244;
+  --primary2:	#FAE790;
+  --primary3:	#faecad;
+  --secondary: #D54026;
+  --green: #93c593;
+  --red: #D54026;
+  --black: #3f3f3f;
+  --grey5: #4b4b4b;
+  --grey4: #6d6c6c;
+  --grey3: #bbbbbb;
+  --grey2: #dbdbdb;
+  --grey1: #f3f3f3;
+  --white: #fefefe;
+}
 
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @use \"modules/colors\";\d\a   \2502  ^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   styles\\news.scss 1:1  root stylesheet";
+section {
+  width: 100%;
+}
+section .splide__list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 40px;
+}
+section .card {
+  width: 300px;
+  height: 320px;
+  box-shadow: 2px 2px 5px rgba(116, 116, 116, 0.561);
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.card {
+  box-sizing: content-box;
+}
+.card .imgContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+.card .picture {
+  border-radius: 10px 10px 0px 0px;
+  height: 150px;
+}
+.card .articleContent {
+  padding: 15px 20px 15px 20px;
+}
+.card h3 {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+.card h3:hover {
+  transform: scale(1.1);
+}
+.card .littleHr {
+  width: 50px;
+  height: 5px;
+  margin: 10px 0px 10px 0px;
+}
+.card p {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+.card #cardHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0px 0px 10px 0px;
+}
+.card .icons {
+  cursor: pointer;
+  width: 18px;
+  margin: 0px 0px 0px 10px;
+}
+.card .icons:hover {
+  transform: scale(1.2);
 }

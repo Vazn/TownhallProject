@@ -1,5 +1,5 @@
-@use "modules/colors";
-@use "modules/mixin";
+@use "modules/config/colors";
+@use "modules/config/mixin";
 
 body {
    overflow-x: hidden;

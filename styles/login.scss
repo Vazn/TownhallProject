@@ -1,5 +1,5 @@
-@use "modules/colors";
-@use "modules/mixin";
+@use "modules/config/colors";
+@use "modules/config/mixin";
 
 section {
    @include mixin.flex(column, center, center);

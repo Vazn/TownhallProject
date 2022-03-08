@@ -1,17 +1,15 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 1 | @use "modules/colors";
- *   | ^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   styles\about.scss 1:1  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @use \"modules/colors\";\d\a   \2502  ^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   styles\\about.scss 1:1  root stylesheet";
+:root {
+  --primary: #F2D244;
+  --primary2:	#FAE790;
+  --primary3:	#faecad;
+  --secondary: #D54026;
+  --green: #93c593;
+  --red: #D54026;
+  --black: #3f3f3f;
+  --grey5: #4b4b4b;
+  --grey4: #6d6c6c;
+  --grey3: #bbbbbb;
+  --grey2: #dbdbdb;
+  --grey1: #f3f3f3;
+  --white: #fefefe;
 }
