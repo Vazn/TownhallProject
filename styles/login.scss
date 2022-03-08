@@ -8,6 +8,7 @@ section {
 form {
    @include mixin.flex(column, center, center);
 
+   margin-top: 20px;
    width: 250px;
    background-color: color;
    padding: 10px 15px 15px 20px;

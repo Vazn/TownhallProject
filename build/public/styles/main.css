@@ -63,9 +63,9 @@ h2 {
 
 a, a:link, a:visited {
   font-size: 1.1rem;
-  transition: all 0.4s;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
+  transition: all 0.4s;
   color: var(--black);
 }
 
@@ -139,7 +139,7 @@ body footer > nav ul a {
   margin: 15px;
   padding: 10px;
 }
-body header a:hover, body footer a:hover {
+body header a:not(#mainTitle):hover, body footer a:not(#mainTitle):hover {
   background-color: var(--primary);
   color: var(--black);
 }
@@ -152,11 +152,19 @@ header > nav {
   width: 100%;
   height: 100%;
 }
-header > nav img {
+header > nav #mainTitle {
   position: absolute;
   cursor: pointer;
-  top: 5px;
-  height: 90px;
+  top: 22px;
+  filter: blur(0.4px);
+}
+header > nav svg {
+  transition: all 0.1s;
+  fill: var(--black);
+  height: 50px;
+}
+header > nav svg:hover {
+  fill: var(--secondary);
 }
 header > nav ul {
   display: flex;

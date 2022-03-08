@@ -9,7 +9,6 @@ body {
    }
 }
 section {
-   // @include mixin.flex(row, flex-start, center);
    margin: 40px 0px 40px 0px;
    
    width: 100%;
@@ -17,7 +16,6 @@ section {
    justify-content: space-between;
 
    article {
-      // @include mixin.flex(column, flex-start, flex-start);
       
       width: 300px;
       height: 320px;
@@ -25,7 +23,6 @@ section {
       border-radius: 10px;
    }
 }
-
 article {
    cursor: pointer;
    box-sizing: content-box;

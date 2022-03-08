@@ -46,9 +46,9 @@ h2 {
 }
 a, a:link, a:visited {
    font-size: 1.1rem;
-   transition: all 0.4s;
    font-family: 'Montserrat', sans-serif;
    font-weight: 500;
+   transition: all 0.4s;
    color: colors.get(black);
 }
 .weightedText {
@@ -109,7 +109,7 @@ body {
       }
    }
 
-   header a:hover, footer a:hover {
+   header a:not(#mainTitle):hover, footer a:not(#mainTitle):hover {
       background-color: colors.get(primary);
       color: colors.get(black);
    }
@@ -120,11 +120,19 @@ header > nav {
    width: 100%;
    height: 100%;
 
-   img {
+   #mainTitle {
       position: absolute;
       cursor: pointer;
-      top: 5px;
-      height: 90px;
+      top: 22px;
+      filter: blur(0.4px);
+   }
+   svg {
+      transition: all 0.1s;
+      fill: colors.get(black);
+      height: 50px;
+   }
+   svg:hover {
+      fill: colors.get(secondary);
    }
    ul {
       @include mixin.flex(row, center, center);

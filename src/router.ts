@@ -124,10 +124,11 @@ router.get("/getEvents",  async (req :Request, res :Response) => {
 });
 //===========//========>> PAGES RENDERING <<============//===========//
 
-router.get("^/$|/index(.html)?", getData("articles"), renderTemplate("index", "Commune de Rouffiac d'Aude"));
-router.get("/about(.html)?", renderTemplate("about", "La municipalité"));
+router.get("/life(.html)?", renderTemplate("life", "Au quotidien"));
 router.get("/calendar(.html)?", renderTemplate("calendar", "Agenda et activités"));
+router.get("^/$|/index(.html)?", getData("articles"), renderTemplate("index", "Commune de Rouffiac d'Aude"));
 router.get("/procedures(.html)?", renderTemplate("procedures", "Vos démarches"));
+router.get("/about(.html)?", renderTemplate("about", "La municipalité"));
 
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));

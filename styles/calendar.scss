@@ -3,7 +3,8 @@
 
 #calendar {
    width: 80%;
-   height: 650px;
+   height: 600px;
+   margin-bottom: 30px;
    @include mixin.mobile {
       width: 450px;
    }
