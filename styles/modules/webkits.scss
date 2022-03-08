@@ -1,0 +1,22 @@
+@use "./config/colors";
+
+::-webkit-scrollbar {
+   width: 10px;
+}
+::-webkit-scrollbar-track {
+   background: colors.get(grey4);
+}
+::-webkit-scrollbar-thumb {
+   background: colors.get(grey2);
+}
+::-webkit-scrollbar-thumb:hover {
+   background: colors.get(primary2);
+}
+::-moz-selection {
+   color: colors.get(black);
+   background: colors.get(primary2);
+}
+::selection {
+   color: colors.get(black);
+   background: colors.get(primary2);
+}

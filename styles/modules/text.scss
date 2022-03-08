@@ -1,0 +1,29 @@
+@use "./config/colors";
+
+a, a:link, a:visited {
+   font-size: 1.2rem;
+   font-family: 'Montserrat', sans-serif;
+   font-weight: 500;
+   transition: all 0.4s;
+   color: colors.get(black);
+}
+h2 {
+   font-family: 'Montserrat Alternates', sans-serif;
+   font-size: 2rem;
+}
+.weightedText {
+   font-weight: 1000;
+}
+
+hr {
+   margin: 10px 0px 10px 0px;
+   border: none;
+   background: colors.get(primary);
+   width: 80%;
+   height: 3px;
+}
+.bigHr {
+   opacity: 0.3;
+   height: 10px;
+   width: 500px;
+}

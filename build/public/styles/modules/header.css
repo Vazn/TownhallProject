@@ -1,0 +1,79 @@
+:root {
+  --primary: #F2D244;
+  --primary2:	#FAE790;
+  --primary3:	#faecad;
+  --secondary: #D54026;
+  --green: #93c593;
+  --red: #D54026;
+  --black: #3f3f3f;
+  --grey5: #4b4b4b;
+  --grey4: #6d6c6c;
+  --grey3: #bbbbbb;
+  --grey2: #dbdbdb;
+  --grey1: #f3f3f3;
+  --white: #fefefe;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 500;
+  background-color: var(--white);
+  height: 100px;
+  width: 100%;
+  border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}
+header a:not(#mainTitle):hover, header footer a:not(#mainTitle):hover {
+  background-color: var(--primary);
+  color: var(--black);
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+nav #mainTitle {
+  position: absolute;
+  cursor: pointer;
+  top: 22px;
+  filter: blur(0.4px);
+}
+nav svg {
+  transition: all 0.15s;
+  fill: var(--black);
+  height: 50px;
+}
+nav svg:hover {
+  fill: var(--secondary);
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+}
+nav ul a {
+  margin: 15px;
+  padding: 10px;
+}
+nav ul #leftMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 200px;
+}
+nav ul #rightMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

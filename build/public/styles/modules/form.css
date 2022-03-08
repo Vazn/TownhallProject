@@ -1,0 +1,36 @@
+:root {
+  --primary: #F2D244;
+  --primary2:	#FAE790;
+  --primary3:	#faecad;
+  --secondary: #D54026;
+  --green: #93c593;
+  --red: #D54026;
+  --black: #3f3f3f;
+  --grey5: #4b4b4b;
+  --grey4: #6d6c6c;
+  --grey3: #bbbbbb;
+  --grey2: #dbdbdb;
+  --grey1: #f3f3f3;
+  --white: #fefefe;
+}
+
+input {
+  padding: 8px;
+}
+
+.fileUpload, input[type=button], input[type=submit], button {
+  cursor: pointer;
+  padding: 8px;
+  font-size: 1.1rem;
+  background: var(--grey1);
+  border: var(--grey3) solid 1px;
+  transition: background 0.2s;
+}
+
+.fileUpload:hover, input[type=button]:hover, input[type=submit]:hover, button:hover {
+  background: var(--primary2);
+}
+
+input[type=file] {
+  display: none;
+}

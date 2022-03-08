@@ -8,14 +8,47 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { queryControler } from './fetchModule.js';
-const articles = document.querySelectorAll("article");
-const hr = document.querySelectorAll("hr");
+import anime from '../node_modules/animejs/lib/anime.es.js';
+const articles = document.querySelectorAll(".card");
+function articleModals() {
+    const titles = document.querySelectorAll(".card h3");
+    const images = document.querySelectorAll(".card .picture");
+    const paragraphs = document.querySelectorAll(".card p");
+    const modal = document.querySelector(".modal");
+    const modalContent = document.querySelector(".modalContent");
+    for (let i = 0; i < titles.length; i++) {
+        titles[i].addEventListener("click", () => {
+            modalContent.innerHTML = "";
+            const [image, text] = [
+                images[i].getAttribute("src"),
+                paragraphs[i].textContent
+            ];
+            const separatorElement = document.createElement("hr");
+            separatorElement.setAttribute("class", "littleHr");
+            separatorElement.style.margin = "4% 0 3% 0";
+            const imageElement = document.createElement("img");
+            imageElement.setAttribute("src", image);
+            const paragraphElement = document.createElement("p");
+            paragraphElement.textContent = text;
+            modalContent.append(imageElement);
+            modalContent.append(separatorElement);
+            modalContent.append(paragraphElement);
+            modal.style.visibility = "visible";
+            modal.style.opacity = "100";
+        });
+    }
+    window.addEventListener("mousedown", (e) => {
+        if (e.target === modal) {
+            modal.style.opacity = '0';
+            modal.style.visibility = 'hidden';
+        }
+    });
+}
 function buttonsHandler() {
     const gears = document.querySelectorAll(".gear");
     const trash = document.querySelectorAll(".trash");
     for (let i = 0; i < gears.length; i++) {
-        const articleTitle = articles[i].childNodes[1].textContent;
-        console.log("articleTitle : ", articleTitle);
+        const articleTitle = document.querySelectorAll(".card h3")[i].textContent;
         gears[i].addEventListener("click", updateEvent(articleTitle, i));
         trash[i].addEventListener("click", deleteEvent(articleTitle, i));
     }
@@ -34,15 +67,24 @@ function deleteEvent(title, i) {
         const data = yield queryControler([`deleteArticle/`, title], {
             method: "GET",
         });
+        let duration = 800;
+        let timeline = anime.timeline({
+            easing: 'easeOutQuad',
+            duration: duration,
+            targets: articles[i],
+        });
         if (data.success) {
-            articles[i].style.animation = "fadeOut 0.2s forwards, slideOut 3.5s forwards";
-            hr[i].style.animation = "fadeOut 0.2s forwards, slideOut 3.5s forwards";
+            timeline.add({
+                opacity: 0.2,
+            }).add({
+                translateY: "-400",
+            }, `-=${duration}`);
             setTimeout(() => {
-                hr[i].style.display = "none";
                 articles[i].style.display = "none";
-            }, 1500);
+            }, duration - 300);
         }
         else {
+            alert("Un problême est survenu sur le serveur, suppression impossible !");
         }
     });
 }
@@ -55,7 +97,6 @@ function articleForm() {
     form.addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
         e.preventDefault();
         const data = yield updateArticle(form);
-        console.log("data : ", data);
         if (data.success) {
             feedback.style.color = "var(--green)";
             feedback.textContent = "";
@@ -71,6 +112,7 @@ function articleForm() {
 function updateArticle(form) {
     return __awaiter(this, void 0, void 0, function* () {
         const formData = new FormData(form);
+        console.log("formData : ", formData);
         const data = yield queryControler(["articleCreate"], {
             method: "POST",
             body: formData,
@@ -78,4 +120,4 @@ function updateArticle(form) {
         return data;
     });
 }
-export { buttonsHandler, articleForm };
+export { buttonsHandler, articleForm, articleModals };

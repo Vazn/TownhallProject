@@ -126,9 +126,10 @@ router.get("/getEvents",  async (req :Request, res :Response) => {
 
 router.get("/life(.html)?", renderTemplate("life", "Au quotidien"));
 router.get("/calendar(.html)?", renderTemplate("calendar", "Agenda et activités"));
-router.get("^/$|/index(.html)?", getData("articles"), renderTemplate("index", "Commune de Rouffiac d'Aude"));
+router.get("^/$|/index(.html)?", getData("articles", 8), renderTemplate("index", "Commune de Rouffiac d'Aude"));
 router.get("/procedures(.html)?", renderTemplate("procedures", "Vos démarches"));
 router.get("/about(.html)?", renderTemplate("about", "La municipalité"));
+router.get("/news(.html)?", getData("articles", 0), renderTemplate("news", "Actualités"));
 
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
@@ -147,10 +148,10 @@ function renderTemplate(page :string, title :string, scripts :Array<string> = []
       });  
    }
 }
-function getData(type :string) {
+function getData(type :string, limit :number) {
    return async (req :CustomRequest, res, next) => {
       if (type === "articles") {
-         const data = await Article.find({}).lean();
+         const data = await Article.find({}).limit(limit).lean();
          for (let obj of data) {
             obj.title =  obj.title.replace(/_/g,' ')         
          }

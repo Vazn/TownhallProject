@@ -10,11 +10,11 @@
 <img src="https://img.shields.io/badge/Styled%20by-SASS-%23b19cd9?style=for-the-badge">
 ## ***Features***
 ✅ **Connexion interface** <br>
-✅ **Final design** 75% <br>
+✅ **Final design** 80% <br>
 
 🔄 **Articles CRUD** 50% <br>
 🔄 **Events CRUD** 50% <br>
-🔄 **Final dynamic display & templates** 25% <br>
+🔄 **Final dynamic display & templates** 50% <br>
 
 💤 **Security features ...** <br>
 

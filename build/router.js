@@ -122,9 +122,10 @@ router.get("/getEvents", (req, res) => __awaiter(void 0, void 0, void 0, functio
 }));
 router.get("/life(.html)?", renderTemplate("life", "Au quotidien"));
 router.get("/calendar(.html)?", renderTemplate("calendar", "Agenda et activités"));
-router.get("^/$|/index(.html)?", getData("articles"), renderTemplate("index", "Commune de Rouffiac d'Aude"));
+router.get("^/$|/index(.html)?", getData("articles", 8), renderTemplate("index", "Commune de Rouffiac d'Aude"));
 router.get("/procedures(.html)?", renderTemplate("procedures", "Vos démarches"));
 router.get("/about(.html)?", renderTemplate("about", "La municipalité"));
+router.get("/news(.html)?", getData("articles", 0), renderTemplate("news", "Actualités"));
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
 router.get("/*", renderTemplate("404", "Page introuvable"));
@@ -140,10 +141,10 @@ function renderTemplate(page, title, scripts = [], styles = []) {
         });
     };
 }
-function getData(type) {
+function getData(type, limit) {
     return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         if (type === "articles") {
-            const data = yield Article.find({}).lean();
+            const data = yield Article.find({}).limit(limit).lean();
             for (let obj of data) {
                 obj.title = obj.title.replace(/_/g, ' ');
             }

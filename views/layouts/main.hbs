@@ -17,10 +17,13 @@
    <script type="module" src="scripts/{{ page }}.js" defer ></script>
    <title> {{ title }} </title>
 </head>
-<body>
-   {{> header }}
+<body>   
+   <div class="modal">
+      <div class="modalContent"></div>
+   </div>
+   <div id="backgroundImage" alt="backgroundImage"></div>
 
-   <div id="image" alt="backgroundImage"></div>
+   {{> header }}
 
    {{{ body }}}
 

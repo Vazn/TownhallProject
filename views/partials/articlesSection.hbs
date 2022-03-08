@@ -1,25 +1,27 @@
-<section>
-   {{#each data}}
-   <article>
-      <div class="imgContainer">
-         {{#each imagePaths}}
-            <img class="picture" src="./uploads/images/{{this}}">
+<section class="splide">
+   <div class="splide__track"> 
+      <ul class="splide__list">
+         {{#each data}}
+         <li class="splide__slide card">
+            <div class="imgContainer">
+               {{#each imagePaths}}
+                  <img class="picture" src="./uploads/images/{{this}}">
+               {{/each}}
+            </div>
+
+            <div class="articleContent">
+            <div id="cardHeader">
+               <h3> {{title}} </h3>
+            {{#if ../logged}}
+               <img class="icons gear" src="./images/gear.svg">
+               <img class="icons trash" src="./images/trash.svg">
+            {{/if}}
+            </div>
+               <hr class="littleHr">
+               <p id="content"> {{content}} </p>
+            </div>
+         </li>
          {{/each}}
-      </div>
-
-
-      <div class="articleContent">
-      <div id="cardHeader">
-         <h3> {{title}} </h3>
-      {{#if ../logged}}
-         <img class="icons gear" src="./images/gear.svg">
-         <img class="icons trash" src="./images/trash.svg">
-      {{/if}}
-      </div>
-         <hr class="littleHr">
-         <p> {{content}} </p>
-      </div>
-   </article>
-
-   {{/each}}
+      </ul>
+   </div>
 </section>

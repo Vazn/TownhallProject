@@ -1,16 +1,14 @@
 <main>
+   <link rel="stylesheet" href="scripts/node_modules/@splidejs/splide/dist/css/splide.min.css">
+
    <h2> Actualités </h2>
    <hr class="bigHr">
-
    {{> articlesSection}}
+   <a id="seeMore" href="/news"> Voir plus ...</a>
 
    <h2> Accès </h2>
    <hr class="bigHr">
-
-   <div id="map">
-      <div class="gmap_canvas"><iframe width="750" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=Rouffiac%20d'Aude&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.online-timer.net"></a><br><style>.mapouter{position:relative;text-align:right;height:500px;width:750px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:750px;}</style>
-      </div>
-   </div>
+   {{> map}}
 
    {{# if logged}}
       <h2> Créer et modifier un article </h2>

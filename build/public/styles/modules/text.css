@@ -1,0 +1,46 @@
+:root {
+  --primary: #F2D244;
+  --primary2:	#FAE790;
+  --primary3:	#faecad;
+  --secondary: #D54026;
+  --green: #93c593;
+  --red: #D54026;
+  --black: #3f3f3f;
+  --grey5: #4b4b4b;
+  --grey4: #6d6c6c;
+  --grey3: #bbbbbb;
+  --grey2: #dbdbdb;
+  --grey1: #f3f3f3;
+  --white: #fefefe;
+}
+
+a, a:link, a:visited {
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  transition: all 0.4s;
+  color: var(--black);
+}
+
+h2 {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 2rem;
+}
+
+.weightedText {
+  font-weight: 1000;
+}
+
+hr {
+  margin: 10px 0px 10px 0px;
+  border: none;
+  background: var(--primary);
+  width: 80%;
+  height: 3px;
+}
+
+.bigHr {
+  opacity: 0.3;
+  height: 10px;
+  width: 500px;
+}

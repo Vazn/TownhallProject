@@ -1,79 +1,18 @@
-@use "modules/colors";
-@use "modules/mixin";
+@use "modules/config/reset";
+@use "modules/config/colors";
+@use "modules/config/mixin";
+@use "modules/text";
+@use "modules/webkits";
 
-//== NOTE : Use this inside anythign to make responsive
-@include mixin.mobile {
-};
-
-::-webkit-scrollbar {
-   width: 10px;
-}
-::-webkit-scrollbar-track {
-   background: colors.get(grey4);
-}
-::-webkit-scrollbar-thumb {
-   background: colors.get(grey2);
-}
-::-webkit-scrollbar-thumb:hover {
-   background: colors.get(primary2);
-}
-::-moz-selection {
-   color: colors.get(black);
-   background: colors.get(primary2);
-}
-::selection {
-   color: colors.get(black);
-   background: colors.get(primary2);
-}
-
-* {
-   scroll-behavior: smooth;
-   box-sizing: border-box;
-   margin: 0px;
-   padding: 0px;
-   list-style: none;
-   text-decoration: none;
-   font-family: 'Sen', sans-serif;
-}
-.bigHr {
-   opacity: 0.3;
-   height: 10px;
-   width: 500px;
-}
-h2 {
-   font-family: 'Montserrat Alternates', sans-serif;
-   font-size: 2rem;
-}
-a, a:link, a:visited {
-   font-size: 1.1rem;
-   font-family: 'Montserrat', sans-serif;
-   font-weight: 500;
-   transition: all 0.4s;
-   color: colors.get(black);
-}
-.weightedText {
-   font-weight: 1000;
-   font-size: 1.5rem;
-}
-textarea {
-   resize: none;
-}
+@use "modules/header";
+@use "modules/footer";
+@use "modules/form";
 
 body {
    @include mixin.flex(column, center, center);
    position: relative;
    min-height: 100vh;
 
-   header {
-      @include mixin.flex(column, flex-start, flex-start);
-      
-      z-index: 500;
-      background-color: colors.get(white);
-      height: 100px;
-      width: 100%;
-      border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
-      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-   }
    main {
       @include mixin.flex(column, center, flex-start);
       animation: fadeIn 0.2s 0.3s forwards;
@@ -87,71 +26,8 @@ body {
       min-height: 650.5px;
       padding: 20px 20px 50px 20px;
    }
-   footer {
-      @include mixin.flex(column, center, center);
-      animation: fadeIn 0.2s 0.3s forwards;
-
-      opacity: 0;
-      margin-top:auto; 
-      width: 100%;
-      height: 60px;
-      background-color: colors.get(white);
-      border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
-      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-   }
-   footer > nav {
-      ul {
-         @include mixin.flex(row, center, center);
-         a {
-            margin: 15px;
-            padding: 10px;
-         }
-      }
-   }
-
-   header a:not(#mainTitle):hover, footer a:not(#mainTitle):hover {
-      background-color: colors.get(primary);
-      color: colors.get(black);
-   }
 }
-
-header > nav {
-   @include mixin.flex(row, center, center);
-   width: 100%;
-   height: 100%;
-
-   #mainTitle {
-      position: absolute;
-      cursor: pointer;
-      top: 22px;
-      filter: blur(0.4px);
-   }
-   svg {
-      transition: all 0.1s;
-      fill: colors.get(black);
-      height: 50px;
-   }
-   svg:hover {
-      fill: colors.get(secondary);
-   }
-   ul {
-      @include mixin.flex(row, center, center);
-      margin-right: 5px;
-      a{
-         margin: 15px;
-         padding: 10px;
-      }  
-      #leftMenu {
-         @include mixin.flex(row, center, center);
-         margin-right: 200px;
-      }
-      #rightMenu {
-         @include mixin.flex(row, center, center);
-      }
-   }
-}
-
-#image {
+#backgroundImage {
    background-image: url("../images/vignes.jpg");
    opacity: 0.5;
    z-index: -50000;
@@ -163,43 +39,83 @@ header > nav {
    background-repeat: no-repeat;
    background-size: cover;
 }
+.modal {
+   @include mixin.flex(column, center, center);
+   visibility: hidden;
+   opacity: 0;
+   position: fixed;
+   left: 0;
+   top: 0;
+   background: rgba(0, 0, 0, 0.198);
+   width: 100%;
+   height: 100%;
+   z-index: 1000;
 
-input {
-   padding: 8px;
+   div {
+      @include mixin.flex(column, center, center);
+      @include mixin.mobile {
+         width: 70%;
+      }
+      background-color: #fefefe;
+      padding: 20px;
+      width: 60%;
+   }
+   img {
+      @include mixin.mobile {
+         width: 300px;
+      }
+      width: 400px;
+   }
 }
-
-.fileUpload,input[type=button], input[type=submit], button {
-   cursor: pointer;
-   padding: 8px;
-   font-size: 1.1rem;
+.card {
+   box-sizing: content-box;
    
-   background: colors.get(grey1);
-   border: colors.get(grey3) solid 1px;
-   transition: background 0.2s;
-}
-.fileUpload:hover, input[type=button]:hover, input[type=submit]:hover, button:hover {
-   background: colors.get(primary2);
+   .imgContainer {
+      @include mixin.flex(row, center, center);
+      border-radius: 10px;;
+      flex-wrap: wrap;
+   }
+   .picture {
+      border-radius: 10px 10px 0px 0px;
+      height: 150px;
+   }
+   .articleContent {
+      padding: 15px 20px 15px 20px;
+   }
+   h3 {
+      cursor: pointer;
+      font-size: 1.5rem;
+   }
+   h3:hover {
+      transform: scale(1.1);
+   }
+   .littleHr {
+      width: 50px;
+      height: 5px;
+      margin: 10px 0px 10px 0px;
+   }
+   #content {
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;   
+   }
+   #cardHeader {
+      @include mixin.flex(row, center, flex-start);
+      margin: 0px 0px 10px 0px;
+   }
+   .icons {
+      cursor: pointer;
+      z-index: 1000000000000000000000;
+      width: 18px;
+      margin: 0px 0px 0px 10px;
+   }
+   .icons:hover {
+      transform: scale(1.2);
+   }
 }
 
-input[type=file] {
-   display: none;
-}
-
-
-hr {
-   margin: 10px 0px 10px 0px;
-   border: none;
-   background: colors.get(primary);
-   width: 80%;
-   height: 3px;
-}
-
-@keyframes wiggle {
-   0% {transform: rotate(0deg);}
-   25% {transform: rotate(-5deg);}
-   50% {transform: rotate(5deg);}
-   75% {transform: rotate(-5deg);}
-}
 @keyframes fadeIn {
    from {
       opacity: 0;
@@ -208,25 +124,4 @@ hr {
       opacity: 1;
    }
 }
-@keyframes fadeOut {
-   from {
-      opacity: 1;
-   } 
-   to {
-      opacity: 0;
-   }
-}
-@keyframes slideOut {
-   0% {
-      opacity: 1;
-      transform: translateX(0px);
-   }
-   100% {
-      opacity: 0;
-      transform: translateX(3000px);
-   }
-}
-@keyframes slideUp {
-   0% {transform: translateY(0px);}
-   100% {transform: translateY(-400px);}
-}
+

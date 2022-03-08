@@ -9,66 +9,29 @@ body {
    }
 }
 section {
-   margin: 40px 0px 40px 0px;
-   
+   padding: 0 0 40px 0px;
    width: 100%;
-   display: flex;
-   justify-content: space-between;
 
-   article {
-      
+   .splide__track {
+      padding: 0px 60px 0px 60px;
+   }
+   .splide__list {
+      @include mixin.flex(row, center, flex-start);
+      margin: 40px;
+   }
+   .splide__pagination .is-active{
+      background: colors.get(primary);
+   }
+   .card {
       width: 300px;
       height: 320px;
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 2px 2px 5px rgba(116, 116, 116, 0.561);
       border-radius: 10px;
+      margin: 10px;
    }
 }
-article {
-   cursor: pointer;
-   box-sizing: content-box;
-
-   .imgContainer {
-      @include mixin.flex(row, center, center);
-      border-radius: 10px;;
-      flex-wrap: wrap;
-   }
-   .picture {
-      border-radius: 10px 10px 0px 0px;
-      height: 150px;
-   }
-   .picture:hover {
-      cursor: pointer;
-   }
-   .articleContent {
-      padding: 15px 20px 15px 20px;
-   }
-   h3 {
-      font-size: 1.5rem;
-   }
-   .littleHr {
-      width: 50px;
-      height: 5px;
-      margin: 10px 0px 10px 0px;
-   }
-   p {
-      display: -webkit-box;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;     
-   }
-   #cardHeader {
-      @include mixin.flex(row, center, flex-start);
-      margin: 0px 0px 10px 0px;
-   }
-   .icons {
-      cursor: pointer;
-      width: 18px;
-      margin: 0px 0px 0px 10px;
-   }
-   .icons:hover {
-      transform: scale(1.2);
-   }
+#seeMore {
+   margin-bottom: 30px;
 }
 
 #adminSection {

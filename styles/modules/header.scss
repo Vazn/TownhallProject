@@ -1,0 +1,53 @@
+@use "./config/colors";
+@use "./config/mixin";
+
+header {
+   @include mixin.flex(column, flex-start, flex-start);
+   
+   z-index: 500;
+   background-color: colors.get(white);
+   height: 100px;
+   width: 100%;
+   border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
+   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+
+   a:not(#mainTitle):hover, footer a:not(#mainTitle):hover {
+      background-color: colors.get(primary);
+      color: colors.get(black);
+   }
+}
+nav {
+   @include mixin.flex(row, center, center);
+   width: 100%;
+   height: 100%;
+
+   #mainTitle {
+      position: absolute;
+      cursor: pointer;
+      top: 22px;
+      filter: blur(0.4px);
+   }
+   svg {
+      transition: all 0.15s;
+      fill: colors.get(black);
+      height: 50px;
+   }
+   svg:hover {
+      fill: colors.get(secondary);
+   }
+   ul {
+      @include mixin.flex(row, center, center);
+      margin-right: 5px;
+      a{
+         margin: 15px;
+         padding: 10px;
+      }  
+      #leftMenu {
+         @include mixin.flex(row, center, center);
+         margin-right: 200px;
+      }
+      #rightMenu {
+         @include mixin.flex(row, center, center);
+      }
+   }
+}

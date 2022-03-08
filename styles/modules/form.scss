@@ -1,0 +1,21 @@
+@use "./config/colors";
+@use "./config/mixin";
+
+input {
+   padding: 8px;
+}
+.fileUpload,input[type=button], input[type=submit], button {
+   cursor: pointer;
+   padding: 8px;
+   font-size: 1.1rem;
+   
+   background: colors.get(grey1);
+   border: colors.get(grey3) solid 1px;
+   transition: background 0.2s;
+}
+.fileUpload:hover, input[type=button]:hover, input[type=submit]:hover, button:hover {
+   background: colors.get(primary2);
+}
+input[type=file] {
+   display: none;
+}

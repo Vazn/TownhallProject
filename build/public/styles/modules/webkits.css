@@ -1,0 +1,41 @@
+:root {
+  --primary: #F2D244;
+  --primary2:	#FAE790;
+  --primary3:	#faecad;
+  --secondary: #D54026;
+  --green: #93c593;
+  --red: #D54026;
+  --black: #3f3f3f;
+  --grey5: #4b4b4b;
+  --grey4: #6d6c6c;
+  --grey3: #bbbbbb;
+  --grey2: #dbdbdb;
+  --grey1: #f3f3f3;
+  --white: #fefefe;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--grey4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--grey2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary2);
+}
+
+::-moz-selection {
+  color: var(--black);
+  background: var(--primary2);
+}
+
+::selection {
+  color: var(--black);
+  background: var(--primary2);
+}
