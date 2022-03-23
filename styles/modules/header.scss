@@ -3,7 +3,6 @@
 
 header {
    @include mixin.flex(column, flex-start, flex-start);
-   
    z-index: 500;
    background-color: colors.get(white);
    height: 100px;
