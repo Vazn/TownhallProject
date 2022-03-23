@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="scripts/node_modules/fullcalendar/main.css">
+
+<main>
+   <h2> Agenda </h2>
+   <hr class="bigHr">
+
+   <div id="calendar"></div>
+
+   <h2> Activités et associations </h2>
+   <hr class="bigHr">
+   {{# if logged}} 
+      <h2> Créer et modifier un évènement </h2>
+      <hr class="bigHr">
+      {{> eventForm}}
+   {{/if}}
+</main>

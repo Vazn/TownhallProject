@@ -11,13 +11,24 @@ footer {
    background-color: colors.get(white);
    border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-}
+}   
+
 footer > nav {
    ul {
       @include mixin.flex(row, center, center);
-      a {
+      li a {
          margin: 15px;
          padding: 10px;
+      }
+      li a:hover {
+         background-color: colors.get(primary);
+         color: colors.get(black);
+      } 
+   }
+   #facebookIcon {
+      height: 40px;
+      img {
+         height: inherit;
       }
    }
 }

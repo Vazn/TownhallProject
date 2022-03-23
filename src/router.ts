@@ -39,7 +39,7 @@ router.post("/articleCreate", authentify, upload.any(), async (req, res) => {
    const result = await Article.findOne({title: title});
 
    if (result !== null) {
-      res.json({ success: false });
+      res.json({ success: false }); 
    } else {
       for (let i=0 ; i<req.files.length ; i++) imagePaths.push(req.files[i].filename);
       try {
@@ -122,18 +122,34 @@ router.get("/getEvents",  async (req :Request, res :Response) => {
    const data = await Event.find({}).lean();
    res.json(data);
 });
+
 //===========//========>> PAGES RENDERING <<============//===========//
 
-router.get("/life(.html)?", renderTemplate("life", "Au quotidien"));
-router.get("/calendar(.html)?", renderTemplate("calendar", "Agenda et activités"));
 router.get("^/$|/index(.html)?", getData("articles", 8), renderTemplate("index", "Commune de Rouffiac d'Aude"));
-router.get("/procedures(.html)?", renderTemplate("procedures", "Vos démarches"));
-router.get("/about(.html)?", renderTemplate("about", "La municipalité"));
 router.get("/news(.html)?", getData("articles", 0), renderTemplate("news", "Actualités"));
+router.get("/calendrier(.html)?", renderTemplate("calendrier", "Agenda et activités"));
+
+//---- Au quotidien -------//
+router.get("/ecole(.html)?", renderTemplate("ecole", "Ecole"));
+router.get("/associations(.html)?", renderTemplate("associations", "Associations"));
+router.get("/mediatheque(.html)?", renderTemplate("mediatheque", "Médiatheque"));
+router.get("/maisonMedicale(.html)?", renderTemplate("maisonMedicale", "Maison Médicale"));
+
+//---- Vos démarches -------//
+router.get("/urbanisme(.html)?", renderTemplate("urbanisme", "Urbanisme"));
+router.get("/etatCivil(.html)?", renderTemplate("etatCivil", "Etat Civil"));
+router.get("/transport(.html)?", renderTemplate("transport", "Transports"));
+
+//---- La municipalité -------//
+router.get("/seniors(.html)?", renderTemplate("seniors", "Séniors"));
+router.get("/actionSociale(.html)?", renderTemplate("actionSociale", "Action Sociale"));
+router.get("/communication(.html)?", renderTemplate("communication", "Communication"));
+router.get("/travaux(.html)?", renderTemplate("travaux", "Travaux"));
+router.get("/finances(.html)?", renderTemplate("finances", "Finances"));
+router.get("/entreprises(.html)?", renderTemplate("entreprises", "Entreprises"));
 
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
 router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
-
 router.get("/*", renderTemplate("404", "Page introuvable"));
 
 function renderTemplate(page :string, title :string, scripts :Array<string> = [], styles :Array<string> = []) {

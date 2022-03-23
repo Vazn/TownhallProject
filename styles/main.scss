@@ -72,12 +72,15 @@ body {
    
    .imgContainer {
       @include mixin.flex(row, center, center);
-      border-radius: 10px;;
+      border-radius: 10px;
       flex-wrap: wrap;
    }
    .picture {
+      @include mixin.mobile {
+         width: 200px;
+      }
       border-radius: 10px 10px 0px 0px;
-      height: 150px;
+      width: 300px;
    }
    .articleContent {
       padding: 15px 20px 15px 20px;

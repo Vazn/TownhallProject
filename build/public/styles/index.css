@@ -17,37 +17,86 @@
 body {
   overflow-x: hidden;
 }
-body #map {
-  margin: 40px 0px 40px 0px;
+body main > p {
+  width: 80%;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+body section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
-section {
+.splide {
   padding: 0 0 40px 0px;
   width: 100%;
 }
-section .splide__track {
+.splide .splide__track {
   padding: 0px 60px 0px 60px;
 }
-section .splide__list {
+@media (max-width: 900px) {
+  .splide .splide__track {
+    padding: 0px;
+  }
+}
+.splide .splide__list {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   margin: 40px;
 }
-section .splide__pagination .is-active {
+.splide .splide__pagination .is-active {
   background: var(--primary);
 }
-section .card {
+.splide .card {
   width: 300px;
   height: 320px;
   box-shadow: 2px 2px 5px rgba(116, 116, 116, 0.561);
   border-radius: 10px;
   margin: 10px;
 }
+@media (max-width: 900px) {
+  .splide .card {
+    width: 200px;
+    height: 260px;
+  }
+}
 
-#seeMore {
-  margin-bottom: 30px;
+#infosContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+@media (max-width: 900px) {
+  #infosContainer {
+    flex-direction: column;
+  }
+}
+#infosContainer #gmap_canvas {
+  width: 70%;
+  height: 400px;
+}
+#infosContainer #hours {
+  text-align: center;
+  margin-left: 50px;
+}
+@media (max-width: 900px) {
+  #infosContainer #hours {
+    margin-left: 0px;
+  }
+}
+#infosContainer #hours li {
+  margin: 5px 0px 5px 0px;
 }
 
 #adminSection {

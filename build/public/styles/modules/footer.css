@@ -34,7 +34,17 @@ footer > nav ul {
   align-items: center;
   justify-content: center;
 }
-footer > nav ul a {
+footer > nav ul li a {
   margin: 15px;
   padding: 10px;
+}
+footer > nav ul li a:hover {
+  background-color: var(--primary);
+  color: var(--black);
+}
+footer > nav #facebookIcon {
+  height: 40px;
+}
+footer > nav #facebookIcon img {
+  height: inherit;
 }

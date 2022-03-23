@@ -1,14 +1,21 @@
 <main>
    <link rel="stylesheet" href="scripts/node_modules/@splidejs/splide/dist/css/splide.min.css">
+   <p> 
+      C'est au 3eme siècle de notre ère qu'un centurion romain du nom de Rouffiacus fonda, sur un petit plateau dominant l'Atax (l'Aude actuelle), le domaine qui prit le nom de villa Rouffiaco, qui donna le nom Rouffiac par la suite. 
+   </p>
 
-   <h2> Actualités </h2>
-   <hr class="bigHr">
-   {{> articlesSection}}
-   <a id="seeMore" href="/news"> Voir plus ...</a>
+   <section>
+      <h2> Actualités </h2>
+      <hr class="bigHr">
+      {{> articlesSection}}
+      <a id="seeMore" href="/news"> Voir plus ...</a>
+   </section>
 
-   <h2> Accès </h2>
-   <hr class="bigHr">
-   {{> map}}
+   <section>
+      <h2> Accès & Horaires </h2>
+      <hr class="bigHr">
+      {{> mapAndHours}}
+   </section>
 
    {{# if logged}}
       <h2> Créer et modifier un article </h2>

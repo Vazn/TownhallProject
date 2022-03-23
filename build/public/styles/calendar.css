@@ -19,7 +19,7 @@
   height: 600px;
   margin-bottom: 30px;
 }
-@media (max-width: 850px) {
+@media (max-width: 900px) {
   #calendar {
     width: 450px;
   }
@@ -42,7 +42,7 @@
 #calendar .fc-toolbar-title {
   font-size: 1.4rem;
 }
-@media (max-width: 850px) {
+@media (max-width: 900px) {
   #calendar .fc-toolbar-title {
     font-size: 1rem;
   }

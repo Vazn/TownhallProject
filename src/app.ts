@@ -10,7 +10,6 @@ import { port, url, corsOptions } from "./config/config.js";
 import { __dirname, log, error } from "./helpers.js";
 import { router } from "./router.js";
 
-
 const app = express();
 const client = connect();
 
