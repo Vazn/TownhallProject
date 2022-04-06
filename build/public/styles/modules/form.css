@@ -2,8 +2,13 @@
   --primary: #F2D244;
   --primary2:	#FAE790;
   --primary3:	#faecad;
+  --primary4:	#fcf5da;
   --secondary: #D54026;
-  --green: #93c593;
+  --secondary2: #cf6451;
+  --secondary3: #ca7c6e;
+  --secondary4: rgb(240, 207, 202);
+  --green: #b4c593;
+  --green2: #e8f1d4;
   --red: #D54026;
   --black: #3f3f3f;
   --grey5: #4b4b4b;
@@ -14,6 +19,36 @@
   --white: #fefefe;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--green2);
+  padding: 15px;
+}
+form div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 10px 0px;
+}
+form input[type=text], form textarea {
+  outline: none;
+  border: none;
+}
+form textarea {
+  width: 400px;
+  height: 250px;
+  padding: 5px;
+}
+
+#articleCreationFeedback {
+  margin-top: 5px;
+  font-size: 1.4rem;
+}
+
 input {
   padding: 8px;
 }
@@ -22,13 +57,14 @@ input {
   cursor: pointer;
   padding: 8px;
   font-size: 1.1rem;
-  background: var(--grey1);
-  border: var(--grey3) solid 1px;
-  transition: background 0.2s;
+  background: var(--white);
+  border: none;
+  transition: background 0.2s, color 0.2s;
 }
 
 .fileUpload:hover, input[type=button]:hover, input[type=submit]:hover, button:hover {
-  background: var(--primary2);
+  background: var(--green);
+  color: var(--white);
 }
 
 input[type=file] {

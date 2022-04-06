@@ -15,16 +15,27 @@ body {
 
    main {
       @include mixin.flex(column, center, flex-start);
-      animation: fadeIn 0.2s 0.3s forwards;
-
       @include mixin.mobile {
          width: 100%;
       }
+
+      animation: fadeIn 0.2s 0.3s forwards;
       background-color: colors.get(white);
       opacity: 0;
       width: 80%;
       min-height: 650.5px;
-      padding: 20px 20px 50px 20px;
+      padding: 0px 0px 50px 0px;
+
+      #pageTitle {
+         text-align: center;
+         width: 100%;
+         height: 5%;
+         padding: 15px;
+         background-color: colors.get(primary3);
+      }
+      section {
+         @include mixin.flex(column, center, center);
+      }
    }
 }
 #backgroundImage {
@@ -80,7 +91,10 @@ body {
          width: 200px;
       }
       border-radius: 10px 10px 0px 0px;
-      width: 300px;
+      height: 150px;
+      width: 100%;
+      object-fit: cover;
+      border-bottom: 1px solid lightgray;
    }
    .articleContent {
       padding: 15px 20px 15px 20px;
@@ -97,7 +111,7 @@ body {
       height: 5px;
       margin: 10px 0px 10px 0px;
    }
-   #content {
+   pre {
       display: -webkit-box;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -108,17 +122,36 @@ body {
       @include mixin.flex(row, center, flex-start);
       margin: 0px 0px 10px 0px;
    }
-   .icons {
-      cursor: pointer;
-      z-index: 1000000000000000000000;
-      width: 18px;
-      margin: 0px 0px 0px 10px;
-   }
-   .icons:hover {
-      transform: scale(1.2);
-   }
 }
 
+pre {
+   overflow-x: auto;
+   white-space: pre-wrap;
+   white-space: -moz-pre-wrap;
+   white-space: -pre-wrap;
+   white-space: -o-pre-wrap;
+   word-wrap: break-word;
+}
+
+#adminSection {
+   @include mixin.flex(column, center, center);
+   margin: 35px 0px 0px 0px;
+}
+
+.icons {
+   cursor: pointer;
+   z-index: 1000000000000000000000;
+   width: 18px;
+   margin: 0px 0px 0px 10px;
+}
+.icons:hover {
+   transform: scale(1.2);
+}
+
+
+.splide__arrow {
+   visibility: hidden;
+}
 @keyframes fadeIn {
    from {
       opacity: 0;

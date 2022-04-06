@@ -1,0 +1,28 @@
+<article>
+   <header>
+      <h3>{{title}}</h3>
+      {{#if @root.logged}}
+         {{> adminIcons}}
+      {{/if}}
+   </header>
+   <hr class="bigHr">
+   <pre>{{content}}</pre>
+   {{#unless documents.empty}}
+      <h4> Documents: </h4>
+      {{#each documents.docPaths}}
+         <a href="/uploads/documents/{{this}}" download> {{this}} </a>
+      {{/each}}
+   {{/unless}}
+
+   {{#unless images.empty}}
+      <div class="splide">
+         <div class="splide__track">
+            <div class="splide__list">
+               {{#each images.imagesPaths}}
+                  <img class="splide__slide" src="/uploads/images/{{this}}">
+               {{/each}}
+            </div>
+         </div>
+      </div>
+   {{/unless}}
+</article>

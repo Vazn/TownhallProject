@@ -1,0 +1,24 @@
+<div class="splide">
+   <div class="splide__track"> 
+      <div class="splide__list">
+         {{#each data}}
+         <article class="splide__slide card">
+            <div class="imgContainer">
+               <img class="picture" src="/uploads/images/{{thumbnail}}">
+            </div>
+
+            <div class="articleContent">
+               <div id="cardHeader">
+                  <h3>{{title}}</h3>
+                  {{#if ../logged}}
+                     {{> adminIcons}}
+                  {{/if}}
+               </div>
+               <hr class="littleHr">
+               <pre>{{content}}</pre>
+            </div>
+         </article>
+         {{/each}}
+      </div>
+   </div>
+</div>

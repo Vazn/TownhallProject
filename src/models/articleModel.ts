@@ -10,10 +10,35 @@ const schema = new mongoose.Schema({
       type: String,
       required: true 
    },
-   imagePaths: [String],
+   category: {
+      type: String,
+      required: true,
+   },
+   thumbnail: {
+      type: String,
+      default: "defaultThumbnail.svg",
+   },
+   images: {
+      empty: {
+         type: Boolean,
+         default: true,
+      },
+      imagesPaths: {
+         type: [String]
+      },
+   },
+   documents: {
+      empty: {
+         type: Boolean,
+         default: true,
+      },
+      docPaths: {
+         type: [String]
+      },
+   },
    postDate: {
       type: Date,
-      default: () => getDate()
+      default: () => new Date()
    }
 });
 

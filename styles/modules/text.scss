@@ -4,14 +4,17 @@
 a, a:link, a:visited, h3 {
    font-family: 'Montserrat', sans-serif;
    transition: all 0.4s;
-   color: colors.get(black);
 }
-h2 {
+h3 {
+   font-size: 1.4rem;
    font-family: 'Montserrat Alternates', sans-serif;
 }
 
 .weightedText {
    font-weight: 1000;
+}
+.dashedList {
+   list-style-type: disc;
 }
 
 hr {
@@ -22,7 +25,7 @@ hr {
    height: 3px;
 }
 .bigHr {
-   opacity: 0.3;
+   opacity: 0.5;
    margin-bottom: 20px;
    height: 10px;
    width: 40%;

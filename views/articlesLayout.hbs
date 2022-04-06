@@ -1,0 +1,12 @@
+<main>
+   <link rel="stylesheet" href="scripts/node_modules/@splidejs/splide/dist/css/splide.min.css">
+
+   <h2 id="pageTitle"> {{ title }} </h2>
+
+   {{#each data}}
+      {{> article}}
+   {{/each}}
+   {{# if logged}}
+      {{> adminSectionArticles}}
+   {{/ if}}
+</main>

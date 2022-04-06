@@ -1,13 +1,1 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-import { postTextForm } from './modules/formModules.js';
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    postTextForm("login");
-}))();
+import{postTextForm as n}from"./modules/formModules.js";(this&&this.__awaiter||function(n,t,o,i){function e(n){return n instanceof o?n:new o((function(t){t(n)}))}return new(o||(o=Promise))((function(o,u){function c(n){try{f(i.next(n))}catch(n){u(n)}}function r(n){try{f(i.throw(n))}catch(n){u(n)}}function f(n){n.done?o(n.value):e(n.value).then(c,r)}f((i=i.apply(n,t||[])).next())}))})(void 0,void 0,void 0,(function*(){n("login")}));

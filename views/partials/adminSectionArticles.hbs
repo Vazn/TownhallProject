@@ -1,0 +1,36 @@
+<section id="adminSection">
+   <h3> Créer ou modifier une section </h3>
+   <hr class="bigHr">
+   
+   <form method="POST">
+      <div>
+         <label for="title"> Titre : </label>
+         <input type="text" name="title" placeholder="Titre">
+      </div>
+      <div>
+         <label for="content"> Contenu : </label>
+         <textarea placeholder="Contenu de l'article ..." name="content"  rows="5" cols="33"></textarea>   
+      </div>
+      <div>
+         <label class="fileUpload"> 
+            <input type="file" name="thumbnail">
+            Miniature
+         </label>
+      </div>
+      <div>
+         <label class="fileUpload">
+            <input type="file" name="documents" accept=".txt,.pdf,.docx,.doc,.odt,.rtf,.xls " multiple />
+            Documents texte
+         </label>
+      </div>
+      <div>
+         <label class="fileUpload">
+            <input type="file" name="images" accept=".gif,.jpg,.jpeg,.png,.svg,.webp" multiple />
+            Gallerie
+         </label>
+      </div>
+
+      <input type="submit" value="Créer article">
+   </form>
+   <p id="articleCreationFeedback"></p>
+</section>

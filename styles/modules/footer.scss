@@ -1,7 +1,7 @@
 @use "./config/colors";
 @use "./config/mixin";
 
-footer {
+body > footer {
    @include mixin.flex(column, center, center);
 
    z-index: 5;
@@ -11,9 +11,16 @@ footer {
    background-color: colors.get(white);
    border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+   
+   ul {
+      list-style: none;
+   }
 }   
 
-footer > nav {
+body > footer > nav {
+   a {
+      color: colors.get(black);
+   }
    ul {
       @include mixin.flex(row, center, center);
       li a {

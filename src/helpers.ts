@@ -14,6 +14,9 @@ function getDate() {
 
    return formatted;
 }
+function formatTitles(str :string) {
+   return str.trim().replace(/ /g,"_");
+}
 function log(message :any) {
    console.log(chalk.bgGreen.black(message));
 }
@@ -21,5 +24,5 @@ function error(message :any) {
    console.log(chalk.bgRed.black(message));
 }
 
-export { __filename, __dirname, getDate, log, error};
+export { __filename, __dirname, getDate, formatTitles, log, error};
 

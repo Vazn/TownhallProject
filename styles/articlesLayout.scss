@@ -1,0 +1,33 @@
+@use "modules/config/colors";
+@use "modules/config/mixin";
+
+article {
+   @include mixin.flex(column, center, center);
+   text-align: center;
+   width: 100%;
+   padding: 20px;
+
+   header {
+      @include mixin.flex(row, center, center);
+   }
+   div {
+      margin-top: 10px;
+   }
+   a, a:link, a:visited {
+      color: red;
+   }
+
+   h4 {
+      margin-top: 10px;
+   }
+}
+
+.splide {
+   width: 100%;
+
+   img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+   }
+}

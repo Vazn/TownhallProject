@@ -11,7 +11,7 @@ import { __dirname, log, error } from "./helpers.js";
 import { router } from "./router.js";
 
 const app = express();
-const client = connect();
+const db = connect();
 
 app.engine("hbs", hbs.engine({ extname: "hbs", defaultLayout: "main" }));
 app.set('view engine', 'hbs');
@@ -27,7 +27,7 @@ app.use(session({
    resave: true,
    store: MongoStore.create({
       collectionName: "sessions",
-      clientPromise: client
+      clientPromise: db,
    })
 }));
 app.use(express.json());

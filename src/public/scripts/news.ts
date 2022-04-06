@@ -1,5 +1,5 @@
 import { articleModals } from "./modules/articlesModule.js";
 
-( async () => {
+(async () => {
    articleModals();
 })();

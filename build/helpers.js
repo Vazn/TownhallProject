@@ -1,18 +1,1 @@
-import path from "path";
-import chalk from "chalk";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-function getDate() {
-    const now = new Date(Date.now());
-    const formatted = ('0' + now.getDate()).slice(-2) + '-' +
-        ('0' + (now.getMonth() + 1)).slice(-2) + '-' + now.getFullYear();
-    return formatted;
-}
-function log(message) {
-    console.log(chalk.bgGreen.black(message));
-}
-function error(message) {
-    console.log(chalk.bgRed.black(message));
-}
-export { __filename, __dirname, getDate, log, error };
+import t from"path";import e from"chalk";import{fileURLToPath as o}from"url";const n=o(import.meta.url),r=t.dirname(n);function c(){const t=new Date(Date.now());return("0"+t.getDate()).slice(-2)+"-"+("0"+(t.getMonth()+1)).slice(-2)+"-"+t.getFullYear()}function l(t){return t.trim().replace(/ /g,"_")}function i(t){console.log(e.bgGreen.black(t))}function a(t){console.log(e.bgRed.black(t))}export{n as __filename,r as __dirname,c as getDate,l as formatTitles,i as log,a as error};

@@ -2,8 +2,13 @@
   --primary: #F2D244;
   --primary2:	#FAE790;
   --primary3:	#faecad;
+  --primary4:	#fcf5da;
   --secondary: #D54026;
-  --green: #93c593;
+  --secondary2: #cf6451;
+  --secondary3: #ca7c6e;
+  --secondary4: rgb(240, 207, 202);
+  --green: #b4c593;
+  --green2: #e8f1d4;
   --red: #D54026;
   --black: #3f3f3f;
   --grey5: #4b4b4b;
@@ -17,15 +22,19 @@
 a, a:link, a:visited, h3 {
   font-family: "Montserrat", sans-serif;
   transition: all 0.4s;
-  color: var(--black);
 }
 
-h2 {
+h3 {
+  font-size: 1.4rem;
   font-family: "Montserrat Alternates", sans-serif;
 }
 
 .weightedText {
   font-weight: 1000;
+}
+
+.dashedList {
+  list-style-type: disc;
 }
 
 hr {
@@ -37,7 +46,7 @@ hr {
 }
 
 .bigHr {
-  opacity: 0.3;
+  opacity: 0.5;
   margin-bottom: 20px;
   height: 10px;
   width: 40%;

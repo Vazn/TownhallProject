@@ -1,13 +1,24 @@
 import { queryControler } from './fetchModule.js';
 import anime from '../node_modules/animejs/lib/anime.es.js';
 
-const articles :NodeListOf<HTMLElement> = document.querySelectorAll(".card");
+export function articleHandler() {
+   /* Categorie des articles d'une page = chemin de la page - le "/" */
+   let articlesCategory;
+   if (window.location.pathname.slice(1) === "") {
+      articlesCategory = "actualites";
+   } else {
+      articlesCategory = window.location.pathname.slice(1);
+   }
+
+   buttonsHandler();
+   articleForm(articlesCategory);
+};
 
 function articleModals() {
    const titles :NodeListOf<HTMLElement> = document.querySelectorAll(".card h3");
    
    const images :NodeListOf<HTMLElement> = document.querySelectorAll(".card .picture");
-   const paragraphs :NodeListOf<HTMLElement> = document.querySelectorAll(".card p");
+   const paragraphs :NodeListOf<HTMLElement> = document.querySelectorAll(".card pre");
 	const modal :HTMLElement = document.querySelector(".modal");
    const modalContent :HTMLElement = document.querySelector(".modalContent");
    
@@ -37,10 +48,10 @@ function articleModals() {
 	}
 	
 	window.addEventListener("mousedown", (e) => {					
-			if (e.target === modal) {
-				modal.style.opacity = '0';
-				modal.style.visibility = 'hidden';
-			}
+      if (e.target === modal) {
+         modal.style.opacity = '0';
+         modal.style.visibility = 'hidden';
+      }
 	})
 }
 function buttonsHandler() {
@@ -48,24 +59,28 @@ function buttonsHandler() {
    const trash :NodeListOf<HTMLElement> = document.querySelectorAll(".trash");
    
    for (let i=0 ; i<gears.length ; i++) {
-      const articleTitle :string = document.querySelectorAll(".card h3")[i].textContent;
-      gears[i].addEventListener("click", updateEvent(articleTitle, i));
-      trash[i].addEventListener("click", deleteEvent(articleTitle, i));
+      const articleTitle :string = document.querySelectorAll("article h3")[i].textContent;
+      const articleContent :string = document.querySelectorAll("article pre")[i].textContent;
+      gears[i].addEventListener("click", updateEventHandler(articleTitle, articleContent, i));
+      trash[i].addEventListener("click", deleteEventHandler(articleTitle, i));
    }
 }
-function updateEvent(title :string, i :number) {
+function updateEventHandler(title :string, content :string, i :number) {
    const h2 :HTMLElement = document.querySelector("#adminSection input[name=title]");
+   const textarea :HTMLElement = document.querySelector("#adminSection textarea");
 
    return (e :Event) => {
       e.preventDefault();
+      
       h2.setAttribute("value", title);
+      textarea.textContent = content;
       window.scroll(0, 5000);
    }
 }
-function deleteEvent(title :string, i :number) {
+function deleteEventHandler(title :string, i :number) {
    return async (e :Event) => {
       e.preventDefault();
-      
+      const articles :NodeListOf<HTMLElement> = document.querySelectorAll("article");
       const data = await queryControler([`deleteArticle/`, title], {
          method: "GET",
       });
@@ -77,20 +92,17 @@ function deleteEvent(title :string, i :number) {
       });
       if (data.success) {
          timeline.add({
-            opacity: 0.2,
-         }).add({
-            translateY: "-400",
-            // rotateY: "180deg",
-         }, `-=${duration}`);
+            opacity: 0,
+         });
          setTimeout(() => {
             articles[i].style.display = "none";
-         }, duration - 300);
+         }, duration + 100);
       } else {
          alert("Un problême est survenu sur le serveur, suppression impossible !");
       }
    }
 }
-function articleForm() {
+function articleForm(category :string) {
    const form :HTMLFormElement = document.querySelector("#adminSection form") ?? null;
    const feedback :HTMLElement= document.querySelector("#articleCreationFeedback");
 
@@ -99,23 +111,23 @@ function articleForm() {
       e.preventDefault();
 
       //== Quand un admin crée un article avec un titre qui existe déja => modifie l'article existant
-      const data = await updateArticle(form);
+      const data = await updateArticle(form, category);
 
+      const operationType = data.type;
       if (data.success) {
          feedback.style.color = "var(--green)";
          feedback.textContent = "";
-         feedback.textContent = "Article crée / modifié avec succés !";
+         feedback.textContent = `${operationType} réussie !`;
       } else {
          feedback.style.color = "var(--red)";
          feedback.textContent = "";
-         feedback.textContent = "Echec lors de la création / modification de l'article !";
+         feedback.textContent = `Impossible de contacter le serveur ou la base de donnée !`;
       }
    });
 }
-async function updateArticle(form :HTMLFormElement) :Promise<any> {
+async function updateArticle(form :HTMLFormElement, category :string) :Promise<any> {
    const formData  = new FormData(form);
-   console.log("formData : ", formData)
-   const data = await queryControler(["articleCreate"], {
+   const data = await queryControler([`articleUpdate/${category}`], {
       method: "POST",
       body: formData,
    });
