@@ -116,13 +116,28 @@ body > header .mainMenu {
   padding: 10px;
   transition: background-color 0.2s;
 }
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   body > header .mainMenu {
     display: none;
   }
 }
 body > header a {
   padding: 10px;
+}
+body > header #burgerMenu {
+  position: absolute;
+  left: 20px;
+  display: none;
+}
+@media (max-width: 950px) {
+  body > header #burgerMenu {
+    display: block;
+  }
+}
+body > header #burgerButton {
+  cursor: pointer;
+  height: 40px;
+  display: block;
 }
 body > header .mainMenu:hover {
   cursor: pointer;
@@ -137,6 +152,9 @@ nav {
   height: 100%;
 }
 nav #mainTitle {
+  position: absolute;
+  margin-left: 50%;
+  margin-right: 50%;
   cursor: pointer;
   filter: blur(0.4px);
 }
@@ -146,41 +164,56 @@ nav #mainTitle:hover svg {
 nav svg {
   transition: fill 0.15s;
   fill: var(--black);
-  height: 50px;
+  height: 60px;
 }
-@media (max-width: 900px) {
-  nav svg {
-    height: 40px;
-  }
+nav #burgerDropdown {
+  display: none;
+  position: absolute;
+  top: 69px;
+  left: -20px;
+  width: 200px;
+  background-color: var(--white);
 }
-nav ul {
+nav #burgerDropdown a {
+  padding: 10px;
+  display: inline-block;
+  width: 100%;
+}
+nav #burgerDropdown a:hover {
+  background-color: var(--primary3);
+}
+
+nav > ul {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-nav ul #leftMenu {
+nav > ul #leftMenu {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-right: 20px;
+  margin-left: 14px;
+  margin-right: 120px;
 }
-@media (max-width: 900px) {
-  nav ul #leftMenu {
+@media (max-width: 950px) {
+  nav > ul #leftMenu {
     margin-right: 0px;
+    display: none;
   }
 }
-nav ul #rightMenu {
+nav > ul #rightMenu {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-left: 20px;
+  margin-left: 120px;
 }
-@media (max-width: 900px) {
-  nav ul #rightMenu {
+@media (max-width: 950px) {
+  nav > ul #rightMenu {
     margin-left: 0px;
+    display: none;
   }
 }
 
@@ -256,7 +289,7 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--green2);
+  background-color: var(--primary3);
   padding: 15px;
 }
 form div {
@@ -320,10 +353,10 @@ body main {
   background-color: var(--white);
   opacity: 0;
   width: 80%;
-  min-height: 650.5px;
+  min-height: 82.9vh;
   padding: 0px 0px 50px 0px;
 }
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   body main {
     width: 100%;
   }
@@ -379,7 +412,7 @@ body main section {
   padding: 20px;
   width: 60%;
 }
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .modal div {
     width: 70%;
   }
@@ -387,7 +420,7 @@ body main section {
 .modal img {
   width: 400px;
 }
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .modal img {
     width: 300px;
   }
@@ -411,9 +444,9 @@ body main section {
   object-fit: cover;
   border-bottom: 1px solid lightgray;
 }
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .card .picture {
-    width: 200px;
+    height: 115px;
   }
 }
 .card .articleContent {
@@ -447,12 +480,8 @@ body main section {
 }
 
 pre {
-  overflow-x: auto;
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
+  width: 100%;
+  white-space: pre-line;
 }
 
 #adminSection {
@@ -471,7 +500,7 @@ pre {
 }
 
 .icons:hover {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 .splide__arrow {

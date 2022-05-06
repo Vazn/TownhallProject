@@ -1,1 +1,8 @@
-export function headerStyle(){const e=document.querySelectorAll(".mainMenu"),t=document.querySelectorAll("nav > ul > div > li");for(let l=0;l<e.length;l++)e[l].addEventListener("mouseenter",(t=>{e[l].style.backgroundColor="#F2D244"})),t[l].addEventListener("mouseleave",(t=>{e[l].style.backgroundColor=""}))}
+export function headerStyle() {
+    const menus = document.querySelectorAll(".mainMenu");
+    const boxes = document.querySelectorAll("nav > ul > div > li");
+    for (let i = 0; i < menus.length; i++) {
+        menus[i].addEventListener("mouseenter", (e) => { menus[i].style.backgroundColor = "#F2D244"; });
+        boxes[i].addEventListener("mouseleave", (e) => { menus[i].style.backgroundColor = ""; });
+    }
+}

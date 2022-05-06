@@ -4,6 +4,11 @@ import Splide from './node_modules/@splidejs/splide/dist/js/splide.js';
 (async () => {
    slideHandler();
    articleModals();
+
+   const documentsButton :HTMLElement = document.querySelector("#documentsButton");
+   const galleryButton :HTMLElement = document.querySelector("#galleryButton");
+   documentsButton.style.display = "none";
+   galleryButton.style.display = "none";
 })();
 
 function slideHandler() {
@@ -20,8 +25,12 @@ function slideHandler() {
       rewind : true,
 
       breakpoints: {
-         850: {
+         950: {
             perPage: 2,
+            fixedWidth : '235px',
+            fixedHeight: '280px',
+            padding: { left: 5, right: 5 },
+
          },
       }
    }).mount();

@@ -1,1 +1,267 @@
-var e=this&&this.__awaiter||function(e,t,i,s){function o(e){return e instanceof i?e:new i((function(t){t(e)}))}return new(i||(i=Promise))((function(i,n){function l(e){try{c(s.next(e))}catch(e){n(e)}}function a(e){try{c(s.throw(e))}catch(e){n(e)}}function c(e){e.done?i(e.value):o(e.value).then(l,a)}c((s=s.apply(e,t||[])).next())}))};import t from"express";import i from"multer";import{__dirname as s,getDate as o,formatTitles as n,log as l,error as a}from"./helpers.js";import{User as c,Article as r,Event as d}from"./models/index.js";const u=t.Router(),m=i.diskStorage({destination:(e,t,i)=>{const o=s+"/public/uploads";if(t.mimetype.includes("image")){i(null,o+"/images")}t.mimetype.includes("video")&&i(null,o+"/videos"),t.mimetype.includes("application")&&i(null,o+"/documents")},filename:(e,t,i)=>{i(null,`${o()+"-"+t.originalname}`)}}),g=i({storage:m});function f(e,t){return(i,s)=>{var o;let n=null!==(o=i.data)&&void 0!==o?o:null,l=!0;null!==n&&0!==n.length||(l=!1),s.render(`${e}`,{page:e,title:t,logged:i.session.authenticated,data:n,dataExist:l})}}function y(t,i){return(s,o,n)=>e(this,void 0,void 0,(function*(){const e=yield r.find({category:t}).limit(i).lean();for(let t of e)t.title=t.title.replace(/_/g," ");s.data=e,n()}))}function h(e,t,i){e.session.authenticated?(l("Authentication : OK"),i()):(a("Acces denied"),t.status(403).end())}u.get("/deleteArticle/:title",h,((t,i)=>e(void 0,void 0,void 0,(function*(){yield r.deleteOne({title:t.params.title}),i.json({success:!0})})))),u.post("/articleUpdate/:category",g.any(),h,((t,i)=>e(void 0,void 0,void 0,(function*(){const e=n(t.body.title),s=t.body.content,o=yield r.findOne({title:e}),l=[],a=[];let c;if(void 0!==t.files)for(let e=0;e<t.files.length;e++)"documents"===t.files[e].fieldname?a.push(t.files[e].filename):"images"===t.files[e].fieldname?l.push(t.files[e].filename):"thumbnail"===t.files[e].fieldname&&(console.log("req.files[i] : ",t.files[e]),c=t.files[e].filename);if(null===o)try{yield r.create({title:e,content:s,images:{empty:0===l.length,imagesPaths:l},documents:{empty:0===a.length,docPaths:a},thumbnail:c,category:t.params.category}),i.json({type:"Creation",success:!0})}catch(e){i.json({type:"Creation",success:!1})}else try{yield r.updateOne({title:e},{$set:{content:s,images:{empty:0===l.length,imagesPaths:l},documents:{empty:0===a.length,docPaths:a},thumbnail:c}}),i.json({type:"Modification",success:!0})}catch(e){i.json({type:"Modification",success:!1})}})))),u.post("/eventCreate",h,((t,i)=>e(void 0,void 0,void 0,(function*(){const{title:e,type:s,description:o,start:n,end:l}=t.body;try{yield d.create({title:e,type:s,description:o,start:n,end:l}),i.json({success:!0})}catch(e){console.log("e : ",e),i.json({success:!1})}})))),u.post("/registerUser",((t,i)=>e(void 0,void 0,void 0,(function*(){try{const e=yield c.create({email:t.body.email,password:t.body.password});i.json(e)}catch(e){i.json({message:e})}})))),u.post("/login",((t,i)=>e(void 0,void 0,void 0,(function*(){const e=t.body.email.trim(),s=t.body.password.trim();if(""!==e&&""!==s)if(t.session.authenticated)i.json({success:!1});else{const o=yield c.findOne({email:e});null!==o&&o.password===s?(t.session.authenticated=!0,t.session.save(),i.status(301).json({success:!0})):i.status(403).json({success:!1})}else a("Form data are missing or empty !"),i.status(400).json({success:!1})})))),u.get("/logout",((e,t)=>{e.session.destroy((()=>{t.redirect("/")}))})),u.get("/getEvents",((t,i)=>e(void 0,void 0,void 0,(function*(){const e=yield d.find({}).lean();i.json(e)})))),u.get("^/$|/index(.html)?",y("actualites",8),f("index","Commune de Rouffiac d'Aude")),u.get("/actualites(.html)?",y("actualites",0),f("actualites","Actualités")),u.get("/calendrier(.html)?",f("calendrier","Agenda et activités")),u.get("/ecole(.html)?",y("ecole",0),f("articlesLayout","Ecole")),u.get("/associations(.html)?",f("articlesLayout","Associations")),u.get("/mediatheque(.html)?",f("articlesLayout","Médiatheque")),u.get("/transport(.html)?",f("articlesLayout","Transports")),u.get("/entreprises(.html)?",f("articlesLayout","Entreprises")),u.get("/urbanisme(.html)?",f("articlesLayout","Urbanisme")),u.get("/etatCivil(.html)?",f("articlesLayout","Etat Civil")),u.get("/scolarite(.html)?",f("articlesLayout","Scolarité")),u.get("/risques(.html)?",f("articlesLayout","Risques")),u.get("/leVillage(.html)?",f("articlesLayout","Le village")),u.get("/lesElus(.html)?",f("articlesLayout","Les Elus")),u.get("/lesCommissions(.html)?",f("articlesLayout","Les Commissions")),u.get("/login(.html)?",f("login","Connexion")),u.get("/legal(.html)?",f("legal","Mentions légales"));export{u as router};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import express from "express";
+import multer from "multer";
+import { __dirname, getDate, formatTitles, log, error } from "./helpers.js";
+import { User, Article, Event } from "./models/index.js";
+const router = express.Router();
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        const root = __dirname + "/public/uploads";
+        if (file.mimetype.includes("image")) {
+            const path = root + "/images";
+            callback(null, path);
+        }
+        if (file.mimetype.includes("video"))
+            callback(null, root + "/videos");
+        if (file.mimetype.includes("application"))
+            callback(null, root + "/documents");
+    },
+    filename: (req, file, callback) => {
+        const formattedName = getDate() + "-" + file.originalname;
+        callback(null, `${formattedName}`);
+    }
+});
+const upload = multer({
+    storage: storage,
+});
+router.get("/deleteArticle/:title", authentify, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield Article.deleteOne({ title: req.params.title });
+    res.json({ success: true });
+}));
+router.post("/articleUpdate/:category", upload.any(), authentify, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const title = formatTitles(req.body.title);
+    const content = req.body.content;
+    const result = yield Article.findOne({ title: title });
+    const imagePaths = [];
+    const docPaths = [];
+    let thumbnail;
+    if (req.files !== undefined) {
+        for (let i = 0; i < req.files.length; i++) {
+            if (req.files[i].fieldname === "documents") {
+                docPaths.push(req.files[i].filename);
+            }
+            else if (req.files[i].fieldname === "images") {
+                imagePaths.push(req.files[i].filename);
+            }
+            else if (req.files[i].fieldname === "thumbnail") {
+                thumbnail = req.files[i].filename;
+            }
+        }
+    }
+    if (result === null) {
+        try {
+            yield Article.create({
+                title: title,
+                content: content,
+                images: {
+                    empty: imagePaths.length === 0,
+                    imagesPaths: imagePaths,
+                },
+                documents: {
+                    empty: docPaths.length === 0,
+                    docPaths: docPaths,
+                },
+                thumbnail: thumbnail,
+                category: req.params.category,
+            });
+            res.json({
+                type: "Creation",
+                success: true,
+            });
+        }
+        catch (e) {
+            res.json({
+                type: "Creation",
+                success: false,
+            });
+        }
+    }
+    else {
+        try {
+            yield Article.updateOne({ title: title }, {
+                $set: {
+                    content: content,
+                    images: {
+                        empty: imagePaths.length === 0,
+                        imagesPaths: imagePaths,
+                    },
+                    documents: {
+                        empty: docPaths.length === 0,
+                        docPaths: docPaths,
+                    },
+                    thumbnail: thumbnail,
+                }
+            });
+            res.json({
+                type: "Modification",
+                success: true
+            });
+        }
+        catch (e) {
+            res.json({
+                type: "Modification",
+                success: false,
+            });
+        }
+    }
+}));
+router.post("/eventCreate", authentify, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { type, description, start, end } = req.body;
+    console.log("start : ", start);
+    const title = formatTitles(req.body.title);
+    const result = yield Event.findOne({ title: title });
+    if (result === null) {
+        try {
+            yield Event.create({
+                title: title,
+                type: type,
+                description: description,
+                start: start,
+                end: end,
+            });
+            res.json({ success: true });
+        }
+        catch (e) {
+            console.log("e : ", e);
+            res.json({ success: false });
+        }
+    }
+    else {
+        try {
+            yield Event.updateOne({ title: title }, {
+                $set: {
+                    title: title,
+                    type: type,
+                    description: description,
+                    start: start,
+                    end: end,
+                }
+            });
+            res.json({
+                type: "Modification",
+                success: true
+            });
+        }
+        catch (e) {
+            res.json({
+                type: "Modification",
+                success: false,
+            });
+        }
+    }
+}));
+router.get("/deleteEvent/:title", authentify, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield Event.deleteOne({ title: req.params.title });
+    res.json({ success: true });
+}));
+router.get("/getEvents", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield Event.find({}).lean();
+    res.json(data);
+}));
+router.post("/registerUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield User.create({
+            email: req.body.email,
+            password: req.body.password,
+        });
+        res.json(data);
+    }
+    catch (e) {
+        res.json({ message: e });
+    }
+}));
+router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const email = req.body.email.trim();
+    const password = req.body.password.trim();
+    if (email !== "" && password !== "") {
+        if (req.session.authenticated)
+            res.json({ success: false });
+        else {
+            const existingUser = yield User.findOne({ email: email });
+            if (existingUser !== null && existingUser.password === password) {
+                req.session.authenticated = true;
+                req.session.save();
+                res.status(301).json({ success: true });
+            }
+            else {
+                res.status(403).json({ success: false });
+            }
+        }
+    }
+    else {
+        error("Form data are missing or empty !");
+        res.status(400).json({ success: false });
+    }
+}));
+router.get("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/");
+    });
+});
+router.get("^/$|/index(.html)?", getData(["actualites", "informations"], 8), renderTemplate("index", "Commune de Rouffiac d'Aude"));
+router.get("/actualites(.html)?", getData(["actualites"], 0), renderTemplate("actualites", "Actualités"));
+router.get("/calendrier(.html)?", renderTemplate("calendrier", "Agenda et activités"));
+router.get("/ecole(.html)?", getData(["ecole"], 0), renderTemplate("articlesLayout", "Ecole"));
+router.get("/associations(.html)?", getData(["associations"], 0), renderTemplate("articlesLayout", "Associations"));
+router.get("/mediatheque(.html)?", getData(["mediatheque"], 0), renderTemplate("articlesLayout", "Médiatheque"));
+router.get("/transport(.html)?", getData(["transport"], 0), renderTemplate("articlesLayout", "Transports"));
+router.get("/entreprises(.html)?", getData(["entreprises"], 0), renderTemplate("articlesLayout", "Entreprises"));
+router.get("/urbanisme(.html)?", getData(["urbanisme"], 0), renderTemplate("articlesLayout", "Urbanisme"));
+router.get("/etatCivil(.html)?", getData(["etatCivil"], 0), renderTemplate("articlesLayout", "Etat Civil"));
+router.get("/scolarite(.html)?", getData(["scolarite"], 0), renderTemplate("articlesLayout", "Scolarité"));
+router.get("/risques(.html)?", getData(["risques"], 0), renderTemplate("articlesLayout", "Risques"));
+router.get("/leVillage(.html)?", getData(["leVillage"], 0), renderTemplate("articlesLayout", "Le village"));
+router.get("/lesElus(.html)?", getData(["lesElus"], 0), renderTemplate("articlesLayout", "Les Elus"));
+router.get("/lesCommissions(.html)?", getData(["]lesCommissions"], 0), renderTemplate("articlesLayout", "Les Commissions"));
+router.get("/login(.html)?", renderTemplate("login", "Connexion"));
+router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
+function renderTemplate(page, title) {
+    return (req, res) => {
+        var _a;
+        let inputData = (_a = req.data) !== null && _a !== void 0 ? _a : null;
+        res.render(`${page}`, {
+            page: page,
+            title: title,
+            logged: req.session.authenticated,
+            data: inputData,
+        });
+    };
+}
+function getData(categoryList, limit) {
+    return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        const dataList = {};
+        for (let category of categoryList) {
+            const data = yield Article.find({ category: category }).limit(limit).lean();
+            for (let obj of data) {
+                obj.title = obj.title.replace(/_/g, ' ');
+            }
+            if (categoryList.length === 1) {
+                dataList["main"] = data;
+            }
+            else {
+                dataList[category] = data;
+            }
+        }
+        req.data = dataList;
+        next();
+    });
+}
+function authentify(req, res, next) {
+    if (req.session.authenticated) {
+        log("Authentication : OK");
+        next();
+    }
+    else {
+        error("Acces denied");
+        res.status(403).end();
+    }
+}
+export { router };

@@ -1,1 +1,17 @@
-import{headerStyle as e}from"./modules/styleModules.js";import{articleHandler as i}from"./modules/articlesModule.js";import t from"./node_modules/@splidejs/splide/dist/js/splide.js";(this&&this.__awaiter||function(e,i,t,n){function o(e){return e instanceof t?e:new t((function(i){i(e)}))}return new(t||(t=Promise))((function(t,d){function s(e){try{u(n.next(e))}catch(e){d(e)}}function r(e){try{u(n.throw(e))}catch(e){d(e)}}function u(e){e.done?t(e.value):o(e.value).then(s,r)}u((n=n.apply(e,i||[])).next())}))})(void 0,void 0,void 0,(function*(){i(),e(),new t(".splide",{type:"slide",fixedWidth:350,fixedHeight:175,perPage:3,gap:"1rem",rewind:!0,pagination:!1,breakpoints:{850:{fixedWidth:60,fixedHeight:44}}}).mount()}));
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { headerStyle } from "./modules/styleModules.js";
+import { burgerMenu } from "./modules/responsiveModule.js";
+import { articleHandler } from "./modules/articlesModule.js";
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    articleHandler();
+    headerStyle();
+    burgerMenu();
+}))();

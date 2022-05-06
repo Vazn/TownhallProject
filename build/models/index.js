@@ -1,1 +1,6 @@
-import{User as o}from"./userModel.js";import{Event as r}from"./eventModel.js";import{Article as e}from"./articleModel.js";export{o as User};export{r as Event};export{e as Article};
+import { User } from "./userModel.js";
+import { Event } from "./eventModel.js";
+import { Article } from "./articleModel.js";
+export { User as User };
+export { Event as Event };
+export { Article as Article };

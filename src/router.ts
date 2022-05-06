@@ -49,7 +49,6 @@ router.post("/articleUpdate/:category", upload.any(), authentify, async (req, re
          } else if (req.files[i].fieldname === "images") {
             imagePaths.push(req.files[i].filename);
          } else if (req.files[i].fieldname === "thumbnail") {
-            console.log("req.files[i] : ", req.files[i]);
             thumbnail = req.files[i].filename;
          }
       }
@@ -109,23 +108,60 @@ router.post("/articleUpdate/:category", upload.any(), authentify, async (req, re
       }
    }
 });
-
 router.post("/eventCreate", authentify, async (req, res) => {
-   const { title, type, description, start, end }  = req.body;
-   try {
-      await Event.create({
-         title: title,
-         type: type,
-         description: description,
-         start: start,
-         end: end,
-      });    
-      res.json({ success: true });
-   } catch (e) {
-      console.log("e : ", e)
-      res.json({ success: false });
+   const { type, description, start, end } = req.body;
+   console.log("start : ", start)
+   const title = formatTitles(req.body.title);
+   const result = await Event.findOne({title: title});
+
+   if (result === null) {
+      try {
+         await Event.create({
+            title: title,
+            type: type,
+            description: description,
+            start: start,
+            end: end,
+         });    
+         res.json({ success: true });
+      } catch (e) {
+         console.log("e : ", e)
+         res.json({ success: false });
+      }
+   } else {
+      try {
+         await Event.updateOne({title: title}, {
+            $set: {
+               title: title,
+               type: type,
+               description: description,
+               start: start,
+               end: end,
+            }
+         });
+         res.json({ 
+            type: "Modification",
+            success: true 
+         }); 
+      } catch (e) {
+         res.json({ 
+            type: "Modification",
+            success: false, 
+         });       
+      }
    }
 });
+
+router.get("/deleteEvent/:title",  authentify, async (req, res) => {
+   await Event.deleteOne({title: req.params.title});
+   res.json({ success: true });
+});
+
+router.get("/getEvents",  async (req :Request, res :Response) => {
+   const data = await Event.find({}).lean();
+   res.json(data);
+});
+
 
 //===========//=========>>  USER ROUTES <<===============//===========//
 
@@ -172,37 +208,31 @@ router.get("/logout",  (req :Request, res :Response) => {
    });
 });
 
-//===========//==============>> AJAX <<=================//===========//
-
-router.get("/getEvents",  async (req :Request, res :Response) => {
-   const data = await Event.find({}).lean();
-   res.json(data);
-});
 
 //===========//========>> PAGES RENDERING <<============//===========//
 
-router.get("^/$|/index(.html)?", getData("actualites", 8), renderTemplate("index", "Commune de Rouffiac d'Aude"));
-router.get("/actualites(.html)?", getData("actualites", 0), renderTemplate("actualites", "Actualités"));
+router.get("^/$|/index(.html)?", getData(["actualites", "informations"], 8), renderTemplate("index", "Commune de Rouffiac d'Aude"));
+router.get("/actualites(.html)?", getData(["actualites"], 0), renderTemplate("actualites", "Actualités"));
 
 router.get("/calendrier(.html)?", renderTemplate("calendrier", "Agenda et activités"));
 
 //---- Au quotidien -------//
-router.get("/ecole(.html)?", getData("ecole", 0), renderTemplate("articlesLayout", "Ecole"));
-router.get("/associations(.html)?", renderTemplate("articlesLayout", "Associations"));
-router.get("/mediatheque(.html)?", renderTemplate("articlesLayout", "Médiatheque"));
-router.get("/transport(.html)?", renderTemplate("articlesLayout", "Transports"));
-router.get("/entreprises(.html)?", renderTemplate("articlesLayout", "Entreprises"));
+router.get("/ecole(.html)?", getData(["ecole"], 0), renderTemplate("articlesLayout", "Ecole"));
+router.get("/associations(.html)?", getData(["associations"], 0), renderTemplate("articlesLayout", "Associations"));
+router.get("/mediatheque(.html)?", getData(["mediatheque"], 0), renderTemplate("articlesLayout", "Médiatheque"));
+router.get("/transport(.html)?", getData(["transport"], 0), renderTemplate("articlesLayout", "Transports"));
+router.get("/entreprises(.html)?", getData(["entreprises"], 0),renderTemplate("articlesLayout", "Entreprises"));
 
 //---- Vos démarches -------//
-router.get("/urbanisme(.html)?", renderTemplate("articlesLayout", "Urbanisme"));
-router.get("/etatCivil(.html)?", renderTemplate("articlesLayout", "Etat Civil"));
-router.get("/scolarite(.html)?", renderTemplate("articlesLayout", "Scolarité"));
-router.get("/risques(.html)?", renderTemplate("articlesLayout", "Risques"));
+router.get("/urbanisme(.html)?",  getData(["urbanisme"], 0), renderTemplate("articlesLayout", "Urbanisme"));
+router.get("/etatCivil(.html)?", getData(["etatCivil"], 0), renderTemplate("articlesLayout", "Etat Civil"));
+router.get("/scolarite(.html)?", getData(["scolarite"], 0),renderTemplate("articlesLayout", "Scolarité"));
+router.get("/risques(.html)?", getData(["risques"], 0), renderTemplate("articlesLayout", "Risques"));
 
 //---- La municipalité -------//
-router.get("/leVillage(.html)?", renderTemplate("articlesLayout", "Le village"));
-router.get("/lesElus(.html)?", renderTemplate("articlesLayout", "Les Elus"));
-router.get("/lesCommissions(.html)?", renderTemplate("articlesLayout", "Les Commissions"));
+router.get("/leVillage(.html)?", getData(["leVillage"], 0),renderTemplate("articlesLayout", "Le village"));
+router.get("/lesElus(.html)?", getData(["lesElus"], 0),renderTemplate("articlesLayout", "Les Elus"));
+router.get("/lesCommissions(.html)?", getData(["]lesCommissions"], 0),renderTemplate("articlesLayout", "Les Commissions"));
 
 
 router.get("/login(.html)?", renderTemplate("login", "Connexion"));
@@ -213,27 +243,31 @@ router.get("/legal(.html)?", renderTemplate("legal", "Mentions légales"));
 
 function renderTemplate(page :string, title :string) {
    return (req :CustomRequest, res :Response) => {
-      let inputData = req.data ?? null;
-      let dataExist :boolean = true;
-      
-      if (inputData === null || inputData.length === 0) dataExist = false;
+      let inputData :Object = req.data ?? null;      
 
       res.render(`${page}`, {
          page: page,
          title: title,
          logged: req.session.authenticated,
          data: inputData,
-         dataExist: dataExist,
       });  
    }
 }
-function getData(category :string, limit :number) {
+function getData(categoryList :Array<string>, limit :number) {
    return async (req :CustomRequest, res, next) => {
-      const data :any[] = await Article.find({ category: category}).limit(limit).lean();
-      for (let obj of data) {
-         obj.title =  obj.title.replace(/_/g,' ')         
-      }
-      req.data = data;
+      const dataList :Object = {};
+      for (let category of categoryList) {
+         const data :any[] = await Article.find({ category: category}).limit(limit).lean();
+         for (let obj of data) {
+            obj.title = obj.title.replace(/_/g,' ')         
+         }
+         if (categoryList.length === 1) {
+            dataList["main"] = data;
+         } else {
+            dataList[category] = data;
+         }
+      }    
+      req.data = dataList;
       next();
    }
 }

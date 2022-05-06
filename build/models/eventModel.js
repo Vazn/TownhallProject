@@ -1,1 +1,25 @@
-import e from"mongoose";const t=new e.Schema({title:{type:String,required:!0},type:{type:String,default:"Once"},description:{type:String,default:""},start:{type:Date,required:!0},end:{type:Date,required:!0}}),r=e.model("events",t);export{r as Event};
+import mongoose from "mongoose";
+const schema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    type: {
+        type: String,
+        default: "Once",
+    },
+    description: {
+        type: String,
+        default: "",
+    },
+    start: {
+        type: Date,
+        required: true,
+    },
+    end: {
+        type: Date,
+        required: true,
+    },
+});
+const Event = mongoose.model("events", schema);
+export { Event };

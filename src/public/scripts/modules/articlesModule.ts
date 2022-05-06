@@ -2,9 +2,13 @@ import { queryControler } from './fetchModule.js';
 import anime from '../node_modules/animejs/lib/anime.es.js';
 
 export function articleHandler() {
+   if (window.location.pathname.slice(1) === "calendrier") {
+      return;
+   }
+   
    /* Categorie des articles d'une page = chemin de la page - le "/" */
    let articlesCategory;
-   if (window.location.pathname.slice(1) === "") {
+   if (window.location.pathname.slice(1) === "" || window.location.pathname.slice(1) === "index") {
       articlesCategory = "actualites";
    } else {
       articlesCategory = window.location.pathname.slice(1);
@@ -32,13 +36,13 @@ function articleModals() {
 
          const separatorElement = document.createElement("hr"); /* littleHr */
          separatorElement.setAttribute("class", "littleHr");
-         separatorElement.style.margin = "4% 0 3% 0";
-         const imageElement = document.createElement("img");
-         imageElement.setAttribute("src", image);
+         separatorElement.style.margin = "1% 0 1% 0";
+         const titleElement = document.createElement("h3");
+         titleElement.textContent = titles[i].textContent;
          const paragraphElement = document.createElement("p");
          paragraphElement.textContent = text;
 
-         modalContent.append(imageElement);
+         modalContent.append(titleElement);
          modalContent.append(separatorElement);
          modalContent.append(paragraphElement);
 
@@ -61,11 +65,13 @@ function buttonsHandler() {
    for (let i=0 ; i<gears.length ; i++) {
       const articleTitle :string = document.querySelectorAll("article h3")[i].textContent;
       const articleContent :string = document.querySelectorAll("article pre")[i].textContent;
-      gears[i].addEventListener("click", updateEventHandler(articleTitle, articleContent, i));
-      trash[i].addEventListener("click", deleteEventHandler(articleTitle, i));
+      gears[i].addEventListener("click", updateEventHandler(articleTitle, articleContent));
+      if (trash[i] !== undefined) {
+         trash[i].addEventListener("click", deleteEventHandler(articleTitle, i));
+      }
    }
 }
-function updateEventHandler(title :string, content :string, i :number) {
+function updateEventHandler(title :string, content :string) {
    const h2 :HTMLElement = document.querySelector("#adminSection input[name=title]");
    const textarea :HTMLElement = document.querySelector("#adminSection textarea");
 
@@ -126,6 +132,7 @@ function articleForm(category :string) {
    });
 }
 async function updateArticle(form :HTMLFormElement, category :string) :Promise<any> {
+
    const formData  = new FormData(form);
    const data = await queryControler([`articleUpdate/${category}`], {
       method: "POST",

@@ -40,12 +40,12 @@ body section {
 
 .splide {
   padding: 0 0 40px 0px;
-  width: 100%;
+  max-width: 100%;
 }
 .splide .splide__track {
   padding: 0px 60px 0px 60px;
 }
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .splide .splide__track {
     padding: 0px;
   }
@@ -62,12 +62,12 @@ body section {
 }
 .splide .card {
   width: 300px;
-  height: 320px;
+  height: 350px;
   box-shadow: 2px 2px 5px rgba(116, 116, 116, 0.561);
   border-radius: 10px;
   margin: 10px;
 }
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .splide .card {
     width: 200px;
     height: 260px;
@@ -80,32 +80,64 @@ body section {
   overflow: hidden;
 }
 
-#infosContainer {
+#infoSection header {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+#infosContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
   width: 100%;
   padding: 10px;
 }
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   #infosContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
   }
 }
-#infosContainer #gmap_canvas {
-  width: 70%;
-  height: 400px;
+#infosContainer iframe {
+  width: 50%;
 }
-#infosContainer .hours {
-  text-align: center;
-  margin-left: 50px;
-}
-@media (max-width: 900px) {
-  #infosContainer .hours {
-    margin-left: 0px;
+@media (max-width: 950px) {
+  #infosContainer iframe {
+    width: 90%;
   }
 }
-#infosContainer .hours li {
-  margin: 5px 0px 5px 0px;
+#infosContainer #hoursSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0px 20px 0px 20px;
+  height: inherit;
+  border: grey solid 1px;
+}
+@media (max-width: 950px) {
+  #infosContainer #hoursSection {
+    margin: 20px 20px 0px 20px;
+  }
+}
+#infosContainer #hoursSection header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#infosContainer #hoursSection .icons {
+  margin: 0;
+}
+#infosContainer #hoursSection .picture {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
 }

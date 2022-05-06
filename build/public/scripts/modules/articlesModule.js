@@ -1,1 +1,141 @@
-var e=this&&this.__awaiter||function(e,t,n,o){function r(e){return e instanceof n?e:new n((function(t){t(e)}))}return new(n||(n=Promise))((function(n,c){function i(e){try{u(o.next(e))}catch(e){c(e)}}function l(e){try{u(o.throw(e))}catch(e){c(e)}}function u(e){e.done?n(e.value):r(e.value).then(i,l)}u((o=o.apply(e,t||[])).next())}))};import{queryControler as t}from"./fetchModule.js";import n from"../node_modules/animejs/lib/anime.es.js";export function articleHandler(){let e;e=""===window.location.pathname.slice(1)?"actualites":window.location.pathname.slice(1),r(),l(e)}function o(){const e=document.querySelectorAll(".card h3"),t=document.querySelectorAll(".card .picture"),n=document.querySelectorAll(".card pre"),o=document.querySelector(".modal"),r=document.querySelector(".modalContent");for(let c=0;c<e.length;c++)e[c].addEventListener("click",(()=>{r.innerHTML="";const[e,i]=[t[c].getAttribute("src"),n[c].textContent],l=document.createElement("hr");l.setAttribute("class","littleHr"),l.style.margin="4% 0 3% 0";const u=document.createElement("img");u.setAttribute("src",e);const a=document.createElement("p");a.textContent=i,r.append(u),r.append(l),r.append(a),o.style.visibility="visible",o.style.opacity="100"}));window.addEventListener("mousedown",(e=>{e.target===o&&(o.style.opacity="0",o.style.visibility="hidden")}))}function r(){const e=document.querySelectorAll(".gear"),t=document.querySelectorAll(".trash");for(let n=0;n<e.length;n++){const o=document.querySelectorAll("article h3")[n].textContent,r=document.querySelectorAll("article pre")[n].textContent;e[n].addEventListener("click",c(o,r,n)),t[n].addEventListener("click",i(o,n))}}function c(e,t,n){const o=document.querySelector("#adminSection input[name=title]"),r=document.querySelector("#adminSection textarea");return n=>{n.preventDefault(),o.setAttribute("value",e),r.textContent=t,window.scroll(0,5e3)}}function i(o,r){return c=>e(this,void 0,void 0,(function*(){c.preventDefault();const e=document.querySelectorAll("article"),i=yield t(["deleteArticle/",o],{method:"GET"});let l=800,u=n.timeline({easing:"easeOutQuad",duration:l,targets:e[r]});i.success?(u.add({opacity:0}),setTimeout((()=>{e[r].style.display="none"}),l+100)):alert("Un problême est survenu sur le serveur, suppression impossible !")}))}function l(t){var n;const o=null!==(n=document.querySelector("#adminSection form"))&&void 0!==n?n:null,r=document.querySelector("#articleCreationFeedback");null!==o&&o.addEventListener("submit",(n=>e(this,void 0,void 0,(function*(){n.preventDefault();const e=yield u(o,t),c=e.type;e.success?(r.style.color="var(--green)",r.textContent="",r.textContent=`${c} réussie !`):(r.style.color="var(--red)",r.textContent="",r.textContent="Impossible de contacter le serveur ou la base de donnée !")}))))}function u(n,o){return e(this,void 0,void 0,(function*(){const e=new FormData(n);return yield t([`articleUpdate/${o}`],{method:"POST",body:e})}))}export{r as buttonsHandler,l as articleForm,o as articleModals};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { queryControler } from './fetchModule.js';
+import anime from '../node_modules/animejs/lib/anime.es.js';
+export function articleHandler() {
+    if (window.location.pathname.slice(1) === "calendrier") {
+        return;
+    }
+    let articlesCategory;
+    if (window.location.pathname.slice(1) === "" || window.location.pathname.slice(1) === "index") {
+        articlesCategory = "actualites";
+    }
+    else {
+        articlesCategory = window.location.pathname.slice(1);
+    }
+    buttonsHandler();
+    articleForm(articlesCategory);
+}
+;
+function articleModals() {
+    const titles = document.querySelectorAll(".card h3");
+    const images = document.querySelectorAll(".card .picture");
+    const paragraphs = document.querySelectorAll(".card pre");
+    const modal = document.querySelector(".modal");
+    const modalContent = document.querySelector(".modalContent");
+    for (let i = 0; i < titles.length; i++) {
+        titles[i].addEventListener("click", () => {
+            modalContent.innerHTML = "";
+            const [image, text] = [
+                images[i].getAttribute("src"),
+                paragraphs[i].textContent
+            ];
+            const separatorElement = document.createElement("hr");
+            separatorElement.setAttribute("class", "littleHr");
+            separatorElement.style.margin = "1% 0 1% 0";
+            const titleElement = document.createElement("h3");
+            titleElement.textContent = titles[i].textContent;
+            const paragraphElement = document.createElement("p");
+            paragraphElement.textContent = text;
+            modalContent.append(titleElement);
+            modalContent.append(separatorElement);
+            modalContent.append(paragraphElement);
+            modal.style.visibility = "visible";
+            modal.style.opacity = "100";
+        });
+    }
+    window.addEventListener("mousedown", (e) => {
+        if (e.target === modal) {
+            modal.style.opacity = '0';
+            modal.style.visibility = 'hidden';
+        }
+    });
+}
+function buttonsHandler() {
+    const gears = document.querySelectorAll(".gear");
+    const trash = document.querySelectorAll(".trash");
+    for (let i = 0; i < gears.length; i++) {
+        const articleTitle = document.querySelectorAll("article h3")[i].textContent;
+        const articleContent = document.querySelectorAll("article pre")[i].textContent;
+        gears[i].addEventListener("click", updateEventHandler(articleTitle, articleContent));
+        if (trash[i] !== undefined) {
+            trash[i].addEventListener("click", deleteEventHandler(articleTitle, i));
+        }
+    }
+}
+function updateEventHandler(title, content) {
+    const h2 = document.querySelector("#adminSection input[name=title]");
+    const textarea = document.querySelector("#adminSection textarea");
+    return (e) => {
+        e.preventDefault();
+        h2.setAttribute("value", title);
+        textarea.textContent = content;
+        window.scroll(0, 5000);
+    };
+}
+function deleteEventHandler(title, i) {
+    return (e) => __awaiter(this, void 0, void 0, function* () {
+        e.preventDefault();
+        const articles = document.querySelectorAll("article");
+        const data = yield queryControler([`deleteArticle/`, title], {
+            method: "GET",
+        });
+        let duration = 800;
+        let timeline = anime.timeline({
+            easing: 'easeOutQuad',
+            duration: duration,
+            targets: articles[i],
+        });
+        if (data.success) {
+            timeline.add({
+                opacity: 0,
+            });
+            setTimeout(() => {
+                articles[i].style.display = "none";
+            }, duration + 100);
+        }
+        else {
+            alert("Un problême est survenu sur le serveur, suppression impossible !");
+        }
+    });
+}
+function articleForm(category) {
+    var _a;
+    const form = (_a = document.querySelector("#adminSection form")) !== null && _a !== void 0 ? _a : null;
+    const feedback = document.querySelector("#articleCreationFeedback");
+    if (form === null)
+        return;
+    form.addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
+        e.preventDefault();
+        const data = yield updateArticle(form, category);
+        const operationType = data.type;
+        if (data.success) {
+            feedback.style.color = "var(--green)";
+            feedback.textContent = "";
+            feedback.textContent = `${operationType} réussie !`;
+        }
+        else {
+            feedback.style.color = "var(--red)";
+            feedback.textContent = "";
+            feedback.textContent = `Impossible de contacter le serveur ou la base de donnée !`;
+        }
+    }));
+}
+function updateArticle(form, category) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const formData = new FormData(form);
+        const data = yield queryControler([`articleUpdate/${category}`], {
+            method: "POST",
+            body: formData,
+        });
+        return data;
+    });
+}
+export { buttonsHandler, articleForm, articleModals };

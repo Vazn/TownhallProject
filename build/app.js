@@ -1,1 +1,53 @@
-var e=this&&this.__awaiter||function(e,n,o,t){function i(e){return e instanceof o?e:new o((function(n){n(e)}))}return new(o||(o=Promise))((function(o,r){function s(e){try{m(t.next(e))}catch(e){r(e)}}function c(e){try{m(t.throw(e))}catch(e){r(e)}}function m(e){e.done?o(e.value):i(e.value).then(s,c)}m((t=t.apply(e,n||[])).next())}))};import n from"express";import o from"express-session";import t from"mongoose";import i from"connect-mongo";import r from"cors";import s from"path";import c from"express-handlebars";import{port as m,url as a,corsOptions as u}from"./config/config.js";import{__dirname as f,error as p}from"./helpers.js";import{router as l}from"./router.js";const h=n(),g=v();function v(){return e(this,void 0,void 0,(function*(){try{return(yield t.connect(a)).connection.getClient()}catch(e){p(e)}}))}h.engine("hbs",c.engine({extname:"hbs",defaultLayout:"main"})),h.set("view engine","hbs"),h.set("views",s.join(f,"..","views")),h.use(n.static(f+"/public")),h.use(r(u)),h.use(o({name:"SessionID",secret:"Zfc15441%rza24\\razr[<",cookie:{maxAge:6048e5},saveUninitialized:!1,resave:!0,store:i.create({collectionName:"sessions",clientPromise:g})})),h.use(n.json()),h.use("/",l),h.listen(m,(()=>{console.log(`Server running on port ${m} ...`)}));
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import express from "express";
+import session from "express-session";
+import mongoose from 'mongoose';
+import MongoStore from "connect-mongo";
+import cors from "cors";
+import path from "path";
+import hbs from "express-handlebars";
+import { port, url, corsOptions } from "./config/config.js";
+import { __dirname, error } from "./helpers.js";
+import { router } from "./router.js";
+const app = express();
+const db = connect();
+app.engine("hbs", hbs.engine({ extname: "hbs", defaultLayout: "main" }));
+app.set('view engine', 'hbs');
+app.set("views", path.join(__dirname, "..", "views"));
+app.use(express.static(__dirname + "/public"));
+app.use(cors(corsOptions));
+app.use(session({
+    name: "SessionID",
+    secret: "Zfc15441%rza24\\razr[<",
+    cookie: { maxAge: 604800000 },
+    saveUninitialized: false,
+    resave: true,
+    store: MongoStore.create({
+        collectionName: "sessions",
+        clientPromise: db,
+    })
+}));
+app.use(express.json());
+app.use("/", router);
+app.listen(port, () => {
+    console.log(`Server running on port ${port} ...`);
+});
+function connect() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const database = yield mongoose.connect(url);
+            return database.connection.getClient();
+        }
+        catch (e) {
+            error(e);
+        }
+    });
+}

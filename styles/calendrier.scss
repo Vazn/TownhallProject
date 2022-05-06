@@ -30,3 +30,15 @@
       }
    }
 }
+
+.modalContent {
+   header {
+      @include mixin.flex(row, center, center);
+   }
+   .trash {
+      cursor: pointer;
+      margin-left: 20px;
+      height: 20px;
+      width: fit-content;
+   }
+}

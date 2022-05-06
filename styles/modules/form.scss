@@ -3,7 +3,7 @@
 
 form {
    @include mixin.flex(column, center, center);
-   background-color: colors.get(green2);
+   background-color: colors.get(primary3);
    padding: 15px;
 
    div {

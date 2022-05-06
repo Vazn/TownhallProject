@@ -1,17 +1,20 @@
 <main>
    <link rel="stylesheet" href="scripts/node_modules/@splidejs/splide/dist/css/splide.min.css">
 
-   {{#if dataExist}}
    <section>
       <h2> Actualités </h2>
       <hr class="bigHr">
       {{> articlesSlides}}
       <a id="seeMore" href="/actualites"> Voir plus ...</a>
    </section>
-   {{/if}}
 
-   <section>
-      <h2> Accès & Horaires de la Mairie </h2>
+   <section id="infoSection">
+      <header>
+         <h2> Accès & Informations </h2>
+         {{#if logged}}
+            <img class="icons gear" src="./images/gear.svg">
+         {{/if}}
+      </header>
       <hr class="bigHr">
       {{> mapAndHours}}
    </section>

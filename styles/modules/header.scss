@@ -29,6 +29,20 @@ body > header {
    a {
       padding: 10px;
    }
+   #burgerMenu {
+      @include mixin.mobile {
+         display: block;
+      }
+      position: absolute;
+      left: 20px;
+      display: none;
+   }
+   #burgerButton {
+      cursor: pointer;
+      height: 40px;
+      display: block;
+   }
+
    .mainMenu:hover {
       cursor: pointer;
    }
@@ -40,6 +54,9 @@ nav {
    height: 100%;
 
    #mainTitle {
+      position: absolute;
+      margin-left: 50%;
+      margin-right: 50%;
       cursor: pointer;
       filter: blur(0.4px);
    }
@@ -47,33 +64,50 @@ nav {
       fill: colors.get(secondary);
    }
    svg {
-      @include mixin.mobile {
-         height: 40px;
-      }
       transition: fill 0.15s;
       fill: colors.get(black);
-      height: 50px;
+      height: 60px;
    }
-   ul {      
-      @include mixin.flex(row, center, center);
+   #burgerDropdown {
+      display: none;
+      position: absolute;
+      top: 69px;
+      left: -20px;
+      width: 200px;
+      background-color: colors.get(white);
 
-      #leftMenu {
-         @include mixin.flex(row, center, center);
-         @include mixin.mobile {
-            margin-right: 0px;
-         }
-         margin-right: 20px;
+      a {
+         padding: 10px;
+         display: inline-block;
+         width: 100%;
       }
-      #rightMenu {
-         @include mixin.flex(row, center, center);
-         @include mixin.mobile {
-            margin-left: 0px;
-         }
-         margin-left: 20px;
+      a:hover {
+         background-color: colors.get(primary3);
       }
    }
 }
 
+nav > ul {      
+   @include mixin.flex(row, center, center);
+
+   #leftMenu {
+      @include mixin.flex(row, center, center);
+      @include mixin.mobile {
+         margin-right: 0px;
+         display: none;
+      }
+      margin-left: 14px;
+      margin-right: 120px;
+   }
+   #rightMenu {
+      @include mixin.flex(row, center, center);
+      @include mixin.mobile {
+         margin-left: 0px;
+         display: none;
+      }
+      margin-left: 120px;
+   }
+}
 .dropdown {
    ul {
       visibility: hidden;

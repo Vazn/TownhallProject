@@ -1,1 +1,43 @@
-import e from"mongoose";const t=new e.Schema({title:{type:String,required:!0},content:{type:String,required:!0},category:{type:String,required:!0},thumbnail:{type:String,default:"defaultThumbnail.svg"},images:{empty:{type:Boolean,default:!0},imagesPaths:{type:[String]}},documents:{empty:{type:Boolean,default:!0},docPaths:{type:[String]}},postDate:{type:Date,default:()=>new Date}}),a=e.model("articles",t);export{a as Article};
+import mongoose from "mongoose";
+const schema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true,
+    },
+    thumbnail: {
+        type: String,
+        default: "defaultThumbnail.svg",
+    },
+    images: {
+        empty: {
+            type: Boolean,
+            default: true,
+        },
+        imagesPaths: {
+            type: [String]
+        },
+    },
+    documents: {
+        empty: {
+            type: Boolean,
+            default: true,
+        },
+        docPaths: {
+            type: [String]
+        },
+    },
+    postDate: {
+        type: Date,
+        default: () => new Date()
+    }
+});
+const Article = mongoose.model("articles", schema);
+export { Article };

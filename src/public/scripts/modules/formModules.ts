@@ -6,6 +6,7 @@ function postTextForm(type :string, callback :Function = null) {
    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formattedData = new FormData(form);
+      console.log("formattedData : ", formattedData)
       const json = JSON.stringify(Object.fromEntries(formattedData));
       console.log("json : ", json)
 

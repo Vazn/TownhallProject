@@ -23,7 +23,7 @@ body {
       background-color: colors.get(white);
       opacity: 0;
       width: 80%;
-      min-height: 650.5px;
+      min-height: 82.9vh;
       padding: 0px 0px 50px 0px;
 
       #pageTitle {
@@ -80,7 +80,6 @@ body {
 }
 .card {
    box-sizing: content-box;
-   
    .imgContainer {
       @include mixin.flex(row, center, center);
       border-radius: 10px;
@@ -88,7 +87,7 @@ body {
    }
    .picture {
       @include mixin.mobile {
-         width: 200px;
+         height: 115px;
       }
       border-radius: 10px 10px 0px 0px;
       height: 150px;
@@ -123,14 +122,9 @@ body {
       margin: 0px 0px 10px 0px;
    }
 }
-
 pre {
-   overflow-x: auto;
-   white-space: pre-wrap;
-   white-space: -moz-pre-wrap;
-   white-space: -pre-wrap;
-   white-space: -o-pre-wrap;
-   word-wrap: break-word;
+   width: 100%;
+   white-space: pre-line
 }
 
 #adminSection {
@@ -145,7 +139,7 @@ pre {
    margin: 0px 0px 0px 10px;
 }
 .icons:hover {
-   transform: scale(1.2);
+   transform: scale(1.15);
 }
 
 
